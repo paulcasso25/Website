@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Casso Art Collection - Artist Bio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Significant New Artist Collection</h1>
+        <h1>Paul Casso</h1>
+        <p>Curated for the Discerning Collector</p>
+        <div class="header-divider"></div>
+    </header>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalogue.html">Catalogue</a></li>
+            <li><a href="bio.html">Artist Bio</a></li>
+        </ul>
+    </nav>
+
+    <section class="artist-bio">
+        <div class="bio-content">
+            <div class="artist-name">Paul Casso</div>
+            <p class="bio-text">Paul Casso is a nom de plume, as one might guess. He is not a relative of a certain "Pi Casso", if one's imagination had begun to stray.<br><br>
+            The artist has had some formal artistic training however, he is largely self-trained. He is mostly influenced by real world experiences, theatre, music, a lifetime of observations and disparate, exotic travels.<br><br>
+            Paul Casso would like to share some of his more recent works with the rest of the world to bring joy, enlightenment, and possibly inspiration to others to take up a brush, pencil, charcoal, pen or just a marker and express themselves.</p>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <h2>Contact the Artist</h2>
+        <form name="contact" netlify netlify-honeypot="bot-field" action="/success.html">
+            <p class="hidden">
+                <label>Don't fill this out: <input name="bot-field"></label>
+            </p>
+            
+            <div class="form-grid">
+                <div class="form-row">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="artwork">Artwork Reference</label>
+                    <input type="text" id="artwork" name="artwork">
+                </div>
+                
+                <div class="form-row">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">Send Inquiry</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 The Gallery. All rights reserved.</p>
+    </footer>
+</body>
+</html>

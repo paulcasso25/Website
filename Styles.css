@@ -1,0 +1,223 @@
+/* Modern Reset & Base Styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Georgia', serif;
+    color: #333;
+    line-height: 1.6;
+    background: #fff;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Header */
+header {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+h1 {
+    font-family: 'Didot', serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+.header-divider {
+    margin: 1rem auto;
+    width: 80%;
+    border-top: 1px solid #ddd;
+}
+
+/* Navigation */
+nav {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+}
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+.nav-links a:hover {
+    color: #D4AF37;
+}
+
+/* Artist Bio Section */
+.artist-bio {
+    padding: 1.25rem 0;
+    display: flex;
+    justify-content: center;
+}
+.bio-content {
+    width: 88%;
+    max-width: 680px;
+    text-align: left;
+    padding-left: 1.5rem;
+}
+.artist-name {
+    font-family: 'Didot', serif;
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
+    color: #000;
+    margin-bottom: 1rem;
+}
+.bio-text {
+    line-height: 1.7;
+    font-size: clamp(0.85rem, 3.2vw, 1rem);
+    margin: 0;
+    padding: 0 0.25rem;
+    word-spacing: 0.05em;
+    color: #555;
+}
+.bio-text br {
+    display: block;
+    content: "";
+    margin-top: 1rem;
+    height: 0;
+}
+
+/* Gallery - 1 column with fitted images */
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.item-card {
+    text-align: center;
+}
+.item-card img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    display: block;
+    margin-bottom: 1rem;
+}
+.item-title {
+    font-weight: bold;
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+.item-details {
+    font-style: italic;
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+}
+
+/* Welcome Section */
+.welcome-section {
+    padding: 3rem 1rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.welcome-image {
+    max-width: 100%;
+    max-height: 60vh;
+    margin: 2rem auto;
+    display: block;
+}
+.welcome-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid #D4AF37;
+    color: #D4AF37;
+    text-decoration: none;
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    min-width: 120px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn:hover, .btn:focus {
+    background: #D4AF37;
+    color: white;
+}
+
+/* Contact Form */
+.contact-section {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background: #f9f9f9;
+    margin-top: 1rem;
+}
+.contact-section h2 {
+    font-family: 'Didot', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #000;
+}
+.form-grid {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.form-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+.form-row label {
+    font-size: 0.95rem;
+    color: #555;
+    text-align: right;
+}
+.form-row input,
+.form-row textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border: 1px solid #ddd;
+    font-family: 'Georgia', serif;
+}
+.form-row textarea {
+    min-height: 120px;
+}
+.hidden {
+    display: none;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-top: 1px solid #eee;
+    font-size: 0.8rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .gallery {
+        padding: 1.5rem;
+        gap: 2rem;
+    }
+    .item-card img {
+        max-height: 60vh;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+    .form-row label {
+        text-align: left;
+        padding-top: 0.5rem;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+}

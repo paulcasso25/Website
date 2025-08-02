@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Casso Art Collection - Catalogue</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Significant New Artist Collection</h1>
+        <h1>Paul Casso</h1>
+        <p>Curated for the Discerning Collector</p>
+        <div class="header-divider"></div>
+    </header>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalogue.html">Catalogue</a></li>
+            <li><a href="bio.html">Artist Bio</a></li>
+        </ul>
+    </nav>
+
+    <div class="gallery">
+        <!-- Item 1 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20241202_160507.jpg" alt="Winter landscape painting" loading="lazy">
+            <p class="item-title">Winter</p>
+            <p class="item-details">Oil on Canvas | 2023</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        
+        <!-- Item 2 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20241214_152829.jpg" alt="Red sky with moonlight painting" loading="lazy">
+            <p class="item-title">Moonlight in Red Sky</p>
+            <p class="item-details">Acrylic on Wood | 2022</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        
+        <!-- Item 3 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20241231_145002.jpg" alt="Abstract heat wave painting" loading="lazy">
+            <p class="item-title">Heat</p>
+            <p class="item-details">Acrylic on Canvas | 2022</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250427_142841.jpg" alt="Summer rain scene painting" loading="lazy">
+            <p class="item-title">Summer Rain</p>
+            <p class="item-details">Acrylic on Canvas | 2022</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250607_152052.jpg" alt="Old bridge landscape painting" loading="lazy">
+            <p class="item-title">The Old Bridge</p>
+            <p class="item-details">Acrylic on Canvas | 2022</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250719_143235.jpg" alt="Memorial remembrance painting" loading="lazy">
+            <p class="item-title">Remembrance</p>
+            <p class="item-details">Acrylic on Canvas | 2022</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+    </div>
+
+    <section class="contact-section" id="contact">
+        <h2>Contact the Artist</h2>
+        <form name="contact" netlify netlify-honeypot="bot-field" action="/success.html">
+            <p class="hidden">
+                <label>Don't fill this out: <input name="bot-field"></label>
+            </p>
+            
+            <div class="form-grid">
+                <div class="form-row">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="artwork">Artwork Reference</label>
+                    <input type="text" id="artwork" name="artwork">
+                </div>
+                
+                <div class="form-row">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">Send Inquiry</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 The Gallery. All rights reserved.</p>
+    </footer>
+</body>
+</html>
