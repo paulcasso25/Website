@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome | PAUL CASSO</title>
+  <link rel="stylesheet" href="Styles.css"> <!-- Link your existing CSS -->
   <style>
+    /* Override/add styles specific to the welcome page */
     body {
       background: #000;
       color: #fff;
@@ -13,26 +15,27 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      font-family: "Lucida Console", monospace;
       text-align: center;
+      font-family: "Lucida Console", monospace;
     }
     #typewriter {
       font-size: 26px;
       font-style: italic;
       min-height: 120px;
+      line-height: 1.6;
     }
-    #continue-btn {
+    #enter-btn {
       margin-top: 30px;
-      padding: 10px 20px;
+      padding: 10px 25px;
       background: transparent;
       color: #fff;
       border: 1px solid #fff;
+      font-family: "Lucida Console", monospace;
       cursor: pointer;
-      font-family: inherit;
-      opacity: 0; /* Hidden until animation finishes */
-      transition: opacity 0.5s;
+      opacity: 0;
+      transition: opacity 0.5s, background 0.3s;
     }
-    #continue-btn:hover {
+    #enter-btn:hover {
       background: #fff;
       color: #000;
     }
@@ -41,14 +44,14 @@
 <body>
   <div>
     <div id="typewriter"></div>
-    <button id="continue-btn" onclick="window.location.href='home.html';">Enter →</button>
+    <button id="enter-btn" onclick="window.location.href='Home.html';">Enter</button>
   </div>
 
   <script>
     // Typewriter animation
     const lines = ["Welcome", "to the Art of", "PAUL CASSO"];
     const element = document.getElementById("typewriter");
-    const button = document.getElementById("continue-btn");
+    const button = document.getElementById("enter-btn");
     let lineIndex = 0;
     let charIndex = 0;
 
@@ -71,7 +74,7 @@
       }
     }
 
-    // Start animation when page loads
+    // Start animation on page load
     document.addEventListener("DOMContentLoaded", type);
   </script>
 </body>
