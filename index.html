@@ -1,6 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome | PAUL CASSO</title>
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: "Lucida Console", monospace;
+      text-align: center;
+    }
+    #typewriter {
+      font-size: 26px;
+      font-style: italic;
+      min-height: 120px;
+    }
+    #continue-btn {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: transparent;
+      color: #fff;
+      border: 1px solid #fff;
+      cursor: pointer;
+      font-family: inherit;
+      opacity: 0; /* Hidden until animation finishes */
+      transition: opacity 0.5s;
+    }
+    #continue-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div id="typewriter"></div>
+    <button id="continue-btn" onclick="window.location.href='home.html';">Enter →</button>
+  </div>
+
+  <script>
+    // Typewriter animation
+    const lines = ["Welcome", "to the Art of", "PAUL CASSO"];
+    const element = document.getElementById("typewriter");
+    const button = document.getElementById("continue-btn");
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function type() {
+      if (lineIndex < lines.length) {
+        const currentLine = lines[lineIndex];
+        element.innerHTML += currentLine.charAt(charIndex);
+        charIndex++;
+        
+        if (charIndex < currentLine.length) {
+          setTimeout(type, 100); // Typing speed
+        } else {
+          element.innerHTML += "<br>"; // Line break
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(type, 500); // Pause between lines
+        }
+      } else {
+        button.style.opacity = "1"; // Show button
+      }
+    }
+
+    // Start animation when page loads
+    document.addEventListener("DOMContentLoaded", type);
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paul Casso Art Collection</title>
@@ -70,3 +149,4 @@
 </body>
 
 </html>
+
