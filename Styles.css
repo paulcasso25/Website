@@ -117,6 +117,26 @@ h1 {
 }
 
 /* ================ */
+/* NEW HERO SECTION */
+/* ================ */
+.hero {
+    padding: 5rem 1rem;
+    text-align: center;
+    background: linear-gradient(rgba(10, 26, 47, 0.8), rgba(10, 26, 47, 0.8)),
+                url('images/studio-bg.jpg') center/cover;
+    color: white;
+}
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--gold);
+}
+.hero-text {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+/* ================ */
 /* Artist Bio Section */
 /* ================ */
 .artist-bio {
@@ -331,3 +351,4 @@ footer {
         padding: 0 1rem;
     }
 }
+
