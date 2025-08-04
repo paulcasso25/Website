@@ -15,6 +15,22 @@
     --light-gray: #eee;
 }
 
+/* ======================= */
+/* MODIFIED FEATURED GRID SECTION (ONLY THIS SECTION CHANGED) */
+/* ======================= */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem; /* Reduced from 2.5rem */
+  padding: 3rem 2rem; /* Reduced from 5rem */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.art-preview img {
+  height: 240px; /* Reduced from 300px */
+}
+
 body {
     font-family: 'Georgia', serif;
     color: var(--dark-gray);
@@ -351,4 +367,5 @@ footer {
         padding: 0 1rem;
     }
 }
+
 
