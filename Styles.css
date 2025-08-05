@@ -338,6 +338,12 @@ h1 {
     font-weight: 500;
 }
 
+/* TEST - Should turn body red on mobile */
+@media (max-width: 768px) {
+  body {
+    background: red !important;
+  }
+}
 /* ======================= */
 /* MOBILE STYLES (COMBINED) */
 /* ======================= */
@@ -424,3 +430,4 @@ h1 {
     padding: 0 1rem;
   }
 }
+
