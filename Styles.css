@@ -177,6 +177,71 @@ h1 {
     padding: 0 0.25rem;
     color: #555;
 }
+/* ======================= */
+/* CONTACT SECTION (CLEAN VERSION) */
+/* ======================= */
+.contact-section {
+  padding: 3rem 2rem;
+  background: #f9f9f9;
+  max-width: 800px;
+  margin: 2rem auto;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-family: 'Didot', serif;
+  font-size: 1.8rem;
+  color: #0A1A2F; /* Navy */
+  margin-bottom: 1.5rem;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-row {
+  display: grid;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.form-row label {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.form-row input,
+.form-row textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Georgia', serif;
+}
+
+.form-row textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact-btn {
+  background: #D4AF37; /* Gold */
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 1rem;
+}
+
+.contact-btn:hover {
+  background: #c2a035; /* Darker gold */
+}
 
 /* ================ */
 /* Gallery */
@@ -349,6 +414,7 @@ footer {
         padding: 0 1rem;
     }
 }
+
 
 
 
