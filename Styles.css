@@ -42,73 +42,50 @@ body {
 /* ================ */
 /* Enhanced Navigation */
 /* ================ */
+/* ======================= */
+/* NAVIGATION (FOR ALL PAGES) */
+/* ======================= */
 nav {
-    background: var(--navy);
-    padding: 1.5rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: var(--navy);
+  padding: 1.25rem 2rem;
 }
 
 .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .nav-title {
-    color: var(--gold);
-    font-family: 'Didot', serif;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
+  color: var(--gold);
+  font-family: 'Didot', serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
 }
 
 .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
 }
 
 .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    position: relative;
-    font-weight: 500;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+  transition: opacity 0.3s;
 }
 
 .nav-links a:hover {
-    background: rgba(255,255,255,0.15);
+  opacity: 0.8;
 }
 
 .nav-links a.active {
-    background: var(--gold);
-    color: var(--navy);
-    font-weight: 600;
+  border-bottom: 2px solid var(--gold);
 }
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background: var(--gold);
-    transition: all 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 70%;
-    left: 15%;
-}
-
 /* ================ */
 /* Header */
 /* ================ */
@@ -367,5 +344,6 @@ footer {
         padding: 0 1rem;
     }
 }
+
 
 
