@@ -338,56 +338,48 @@ h1 {
     font-weight: 500;
 }
 
-/* TEST - Should turn body red on mobile */
+
+/* ======================= */
+/* HIGH-PRIORITY MOBILE STYLES */
+/* ======================= */
 @media (max-width: 768px) {
-  body {
-    background: red !important;
+  /* 1. Gallery Grid Reset */
+  body .featured-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+    padding: 1.5rem !important;
+  }
+
+  /* 2. Image Containers */
+  body .art-preview {
+    max-width: 100% !important;
+    margin: 0 auto 2rem !important;
+  }
+
+  /* 3. Images */
+  body .art-preview img {
+    height: auto !important;
+    max-height: 60vh !important;
+  }
+
+  /* 4. Navigation */
+  body .nav-container {
+    flex-direction: column !important;
+    padding: 1rem !important;
+  }
+
+  body .nav-links {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+
+  /* 5. Hero Section */
+  body .hero {
+    padding: 2rem 1rem !important;
+    margin: 1rem 0 !important;
+    max-width: 100% !important;
   }
 }
-/* ======================= */
-/* MOBILE STYLES (COMBINED) */
-/* ======================= */
-@media (max-width: 768px) {
-  /* 1. Tighter Hero Section */
-  .hero {
-    padding: 2rem 1rem;
-    margin: 1rem 0.5rem;
-    max-width: 100%;
-    border-radius: 0;
-  }
-
-  .hero h1 {
-    font-size: 1.5rem;
-  }
-
-  /* 2. Stacked Image Grid */
-  .featured-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 1.5rem;
-  }
-
-  .art-preview {
-    margin: 0 auto;
-    max-width: 100%;
-  }
-
-  .art-preview img {
-    height: auto;
-    max-height: 60vh;
-  }
-
-  /* 3. Adjusted Typography */
-  .art-preview h3 {
-    font-size: 1.2rem;
-    padding: 0.8rem 1rem 0;
-  }
-
-  .art-preview p {
-    padding: 0 1rem 1rem;
-    font-size: 0.9rem;
-  }
-
   /* 4. Compact Navigation */
   .nav-container {
     flex-direction: column;
@@ -430,4 +422,5 @@ h1 {
     padding: 0 1rem;
   }
 }
+
 
