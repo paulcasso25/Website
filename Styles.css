@@ -338,41 +338,8 @@ h1 {
     font-weight: 500;
 }
 
-.btn:hover, .btn:focus {
-    background: var(--gold);
-    color: white;
-}
-
-/* ================ */
-/* Footer */
-/* ================ */
-footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    background: var(--navy);
-    color: white;
-    font-size: 0.9rem;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 1rem 0;
-}
-
-.footer-links a {
-    color: var(--gold);
-    text-decoration: none;
-    transition: opacity 0.3s;
-}
-
-.footer-links a:hover {
-    opacity: 0.8;
-}
-
 /* ======================= */
-/* MOBILE-FRIENDLY GALLERY */
+/* MOBILE STYLES (COMBINED) */
 /* ======================= */
 @media (max-width: 768px) {
   /* 1. Tighter Hero Section */
@@ -443,24 +410,17 @@ footer {
     width: 90%;
     margin: 0.75rem auto;
   }
+
+  /* 6. Extra Small Screens */
+  h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-section {
+    padding: 3rem 1rem;
+  }
+
+  .bio-content {
+    padding: 0 1rem;
+  }
 }
-@media (max-width: 480px) {
-    h1 {
-        font-size: 2rem;
-    }
-
-    .welcome-section {
-        padding: 3rem 1rem;
-    }
-
-    .bio-content {
-        padding: 0 1rem;
-    }
-}
-
-
-
-
-
-
-
