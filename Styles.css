@@ -16,19 +16,23 @@
 }
 
 /* ======================= */
-/* MODIFIED FEATURED GRID SECTION (ONLY THIS SECTION CHANGED) */
+/* CENTERED 2-COLUMN GRID */
 /* ======================= */
 .featured-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem; /* Reduced from 2.5rem */
-  padding: 3rem 2rem; /* Reduced from 5rem */
+  grid-template-columns: repeat(2, minmax(280px, 400px)); /* Explicit 2 columns */
+  justify-content: center; /* Centers the grid */
+  gap: 2rem;
+  padding: 3rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Optional: Adjust image proportions */
 .art-preview img {
-  height: 240px; /* Reduced from 300px */
+  height: 280px; /* Slightly taller for emphasis */
+  width: 100%;
+  object-fit: cover;
 }
 
 body {
@@ -345,6 +349,7 @@ footer {
         padding: 0 1rem;
     }
 }
+
 
 
 
