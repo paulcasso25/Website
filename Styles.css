@@ -113,53 +113,23 @@ h1 {
     border-top: 2px solid var(--gold);
 }
 
-/* Enhanced Submenu styles */
-.submenu {
-    position: relative;
-    display: inline-block;
-}
-
+/* Alternative Warm Color Scheme */
 .submenu-links {
-    display: none;
-    position: absolute;
-    background-color: #2a3f54; /* Deep blue background */
-    min-width: 200px; /* Slightly wider */
-    box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.25);
-    z-index: 1000;
-    left: 0;
-    top: 100%;
-    border-radius: 0 0 4px 4px;
-    border-top: 3px solid #e74c3c; /* Accent color border */
-    padding: 5px 0;
-}
-
-.submenu:hover .submenu-links {
-    display: block;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-.submenu-links li {
-    padding: 10px 20px;
-    text-decoration: none;
-    display: block;
-    transition: all 0.3s ease;
+    background-color: #e67e22; /* Orange background */
+    border-top: 3px solid #3498db; /* Blue accent border */
 }
 
 .submenu-links li a {
-    color: #ecf0f1; /* Light gray text */
-    font-weight: 500;
-    letter-spacing: 0.5px;
+    color: #fff; /* White text */
 }
 
 .submenu-links li:hover {
-    background-color: #34495e; /* Slightly lighter blue on hover */
+    background-color: #d35400; /* Darker orange on hover */
 }
 
 .submenu-links li:hover a {
-    color: #f39c12; /* Orange text on hover */
-    padding-left: 5px; /* Slight movement effect */
+    color: #f1c40f; /* Yellow text on hover */
 }
-
 /* Animation for smooth appearance */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
@@ -494,6 +464,7 @@ h1 {
     padding: 0 1rem;
   }
 }
+
 
 
 
