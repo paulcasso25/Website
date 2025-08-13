@@ -130,31 +130,7 @@ h1 {
 .submenu-links li:hover a {
     color: #f1c40f; /* Yellow text on hover */
 }
-/* Animation for smooth appearance */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
 
-/* Make the parent menu item stand out when submenu is active */
-.submenu > a {
-    position: relative;
-    padding-right: 15px;
-}
-
-.submenu > a::after {
-    content: "▼";
-    font-size: 0.6em;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255,255,255,0.6);
-}
-
-.submenu:hover > a {
-    background-color: rgba(255,255,255,0.1);
-}
 /* ======================= */
 /* COMPACT HERO SECTION */
 /* ======================= */
@@ -464,6 +440,7 @@ h1 {
     padding: 0 1rem;
   }
 }
+
 
 
 
