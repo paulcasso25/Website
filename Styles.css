@@ -113,22 +113,77 @@ h1 {
     border-top: 2px solid var(--gold);
 }
 
-/* Alternative Warm Color Scheme */
+/* Enhanced Submenu styles */
+.submenu {
+    position: relative;
+    display: inline-block;
+}
+
 .submenu-links {
-    background-color: #e67e22; /* Orange background */
-    border-top: 3px solid #3498db; /* Blue accent border */
+    display: none;
+    position: absolute;
+    background-color: #2a3f54; /* Deep blue background */
+    min-width: 200px; /* Slightly wider */
+    box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.25);
+    z-index: 1000;
+    left: 0;
+    top: 100%;
+    border-radius: 0 0 4px 4px;
+    border-top: 3px solid #e74c3c; /* Accent color border */
+    padding: 5px 0;
+}
+
+.submenu:hover .submenu-links {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.submenu-links li {
+    padding: 10px 20px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
 }
 
 .submenu-links li a {
-    color: #fff; /* White text */
+    color: #ecf0f1; /* Light gray text */
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .submenu-links li:hover {
-    background-color: #d35400; /* Darker orange on hover */
+    background-color: #34495e; /* Slightly lighter blue on hover */
 }
 
 .submenu-links li:hover a {
-    color: #f1c40f; /* Yellow text on hover */
+    color: #f39c12; /* Orange text on hover */
+    padding-left: 5px; /* Slight movement effect */
+}
+
+/* Animation for smooth appearance */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Make the parent menu item stand out when submenu is active */
+.submenu > a {
+    position: relative;
+    padding-right: 15px;
+}
+
+.submenu > a::after {
+    content: "▼";
+    font-size: 0.6em;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.6);
+}
+
+.submenu:hover > a {
+    background-color: rgba(255,255,255,0.1);
 }
 
 /* ======================= */
@@ -440,6 +495,7 @@ h1 {
     padding: 0 1rem;
   }
 }
+
 
 
 
