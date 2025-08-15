@@ -515,7 +515,6 @@ textarea:focus {
     width: 100%;
     max-width: 500px;
     height: 350px;
-    object-fit: cover;
     margin: 0 auto;
     display: block;
 }
