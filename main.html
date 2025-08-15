@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"> <!-- Optional cache control -->
+    <title>Paul Casso Art Collection</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Paul Casso Art Collection</h1>
+        <h1> </h1>
+        <p>Curated for the Discerning Collector</p>
+        <div class="header-divider"></div>
+    </header>
+
+<nav>
+  <div class="nav-container">
+    <div class="nav-title">PAUL CASSO</div>
+    <ul class="nav-links">
+      <li><a href="Home.html">Gallery</a></li>
+      <li>
+        <div class="submenu">
+          <a href="#" class="active">Catalogue</a>
+          <ul class="submenu-links">
+            <li><a href="catalogue-perspectives.html">Perspectives</a></li>
+            <li><a href="catalogue-landscapes.html">Landscapes</a></li>
+          </ul>
+        </div>
+      </li>
+      <li><a href="bio.html">Artist Bio</a></li>
+    </ul>
+  </div>
+</nav>
+
+    <section class="welcome-section">
+        <h2>Welcome to the Paul Casso Collection</h2>
+        <p class="welcome-text">
+            Discover the evocative works of Paul Casso, a self-trained artist whose creations are born from real-world experiences, theater, music, and a lifetime of observations. Each piece tells a unique story, inviting you to explore emotions and perspectives through color and form.
+        </p>
+        <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20241202_160507.jpg" alt="Winter landscape painting" class="welcome-image">
+        <a href="catalogue.html" class="btn">View Full Collection</a>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <h2>Contact the Artist</h2>
+        <form name="contact" netlify netlify-honeypot="bot-field" action="/success.html">
+            <p class="hidden">
+                <label>Don't fill this out: <input name="bot-field"></label>
+            </p>
+            
+            <div class="form-grid">
+                <div class="form-row">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="artwork">Artwork Reference</label>
+                    <input type="text" id="artwork" name="artwork">
+                </div>
+                
+                <div class="form-row">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">Send Inquiry</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 LD Gallery. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
+
+
+
+
+

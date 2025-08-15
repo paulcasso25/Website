@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Paul Casso - Perspectives Collection</title>
+    <link rel="stylesheet" href="Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Simple Static Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-title">PAUL CASSO</div>
+            <ul class="nav-links">
+                <li><a href="Home.html">Gallery</a></li>
+                <li><a href="catalogue-perspectives.html" class="active">Perspectives</a></li>
+                <li><a href="catalogue-landscapes.html">Landscapes</a></li>
+                <li><a href="bio.html">Artist Bio</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="gallery">
+        <h1>Perspectives Collection</h1>
+
+        <!-- Item 1 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250427_142841.jpg" alt="Summer rain scene painting" loading="lazy">
+            <p class="item-title">Summer Rain</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        <!-- Item 2 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20241231_145002.jpg" alt="Abstract heat wave painting" loading="lazy">
+            <p class="item-title">Heat</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        <!-- Item 3 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250719_143235.jpg" alt="Memorial remembrance painting" loading="lazy">
+            <p class="item-title">Remembrance</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+    </div>
+        <!-- Item 4 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20241202_160507.jpg" alt="Abstract perspective painting titled Hope" loading="lazy">
+            <p class="item-title">Hope</p>
+            <p class="item-details">Oil on Canvas | 2024</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        
+        <!-- Item 5 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250111_151106.jpg" alt="Abstract perspective painting with complex geometric patterns" loading="lazy">
+            <p class="item-title">What if Jubilee Place had....</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        
+        <!-- Item 6 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250119_141335.jpg" alt="Abstract perspective painting featuring dolls and pawns imagery" loading="lazy">
+            <p class="item-title">Dolls and Pawns</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        
+        <!-- Item 7 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250119_141659.jpg" alt="Abstract perspective painting with swirling patterns and movement" loading="lazy">
+            <p class="item-title">Swirls</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        
+        <!-- Item 8 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250126_152246.jpg" alt="Abstract perspective painting titled The Precipice" loading="lazy">
+            <p class="item-title">The Precipice</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        
+        <!-- Item 9 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/1000020920.jpg" alt="Abstract perspective painting titled The Emergence" loading="lazy">
+            <p class="item-title">The Emergence</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+        
+        <!-- Item 10 -->
+        <div class="item-card">
+            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/1000022742.jpg" alt="Abstract perspective painting titled Geothermal" loading="lazy">
+            <p class="item-title">Geothermal</p>
+            <p class="item-details">Acrylic on Canvas | 2025</p>
+            <a href="#contact" class="btn">Inquire</a>
+        </div>
+    </div>
+
+    <section class="contact-section" id="contact">
+        <h2>Contact the Artist</h2>
+        <form name="contact" netlify netlify-honeypot="bot-field" action="/success.html">
+            <p class="hidden">
+                <label>Don't fill this out if you're human: <input name="bot-field"></label>
+            </p>
+            
+            <div class="form-grid">
+                <div class="form-row">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-row">
+                    <label for="artwork">Artwork Reference</label>
+                    <input type="text" id="artwork" name="artwork">
+                </div>
+                
+                <div class="form-row">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">Send Inquiry</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>© 2025 LD Gallery/Paul Casso. All rights reserved.</p>
+        <p> </p>
+         <p style="font-style: italic; color: navy;">
+          Paul Casso is known as Paul Foxton outside of his artistic realm
+        </p>
+    </footer>
+</body>
+</html>
