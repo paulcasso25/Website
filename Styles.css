@@ -475,7 +475,9 @@ footer p {
     opacity: 0.9;
     font-weight: 400;
 }
-
+footer p[style*="font-style: italic"] {
+    color: var(--gold) !important;
+}
 /* ======================= */
 /* ADDITIONAL ENHANCEMENTS */
 /* ======================= */
