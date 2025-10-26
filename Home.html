@@ -3,61 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"> <!-- Optional cache control -->
-    <title>PAUL CASSO | Art</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    
+    <!-- Primary Meta Tags -->
+    <title>PAUL CASSO | Contemporary Art Gallery - Perspectives & Landscapes</title>
+    <meta name="title" content="PAUL CASSO | Contemporary Art Gallery - Perspectives & Landscapes">
+    <meta name="description" content="Explore the contemporary art collection of PAUL CASSO featuring perspectives and landscapes. View featured artworks from 2024-2025 including the Perceptions Series and Landscapes Series. Discover unique acrylic and oil paintings.">
+    <meta name="keywords" content="Paul Casso art, contemporary paintings, perspectives series, landscapes series, art gallery, abstract paintings, modern art, acrylic paintings, oil paintings, art collection 2024-2025">
+    <meta name="author" content="Paul Casso">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://paulcasso-website.netlify.app/Home.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://paulcasso-website.netlify.app/Home.html">
+    <meta property="og:title" content="PAUL CASSO | Contemporary Art Gallery - Perspectives & Landscapes">
+    <meta property="og:description" content="Explore the contemporary art collection of PAUL CASSO featuring perspectives and landscapes from 2024-2025.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/paulcasso25/Art/main/20250427_142841.jpg">
+    <meta property="og:site_name" content="PAUL CASSO Art">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://paulcasso-website.netlify.app/Home.html">
+    <meta property="twitter:title" content="PAUL CASSO | Contemporary Art Gallery">
+    <meta property="twitter:description" content="Explore contemporary art by PAUL CASSO featuring perspectives and landscapes from 2024-2025.">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/paulcasso25/Art/main/20250427_142841.jpg">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "PAUL CASSO Art Gallery",
+      "description": "Explore the contemporary art collection featuring perspectives and landscapes by Paul Casso",
+      "url": "https://paulcasso-website.netlify.app/Home.html",
+      "mainEntity": {
+        "@type": "VisualArtwork",
+        "creator": {
+          "@type": "Person",
+          "name": "Paul Casso"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage"
+      }
+    }
+    </script>
+    
     <link rel="stylesheet" href="Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation (same as your other pages) -->
-  <nav>
-  <div class="nav-container">
-    <div class="nav-title">PAUL CASSO</div>
-    <ul class="nav-links">
-      <li><a href="Home.html">Gallery</a></li>
-      <li>
-        <div class="submenu">
-          <a href="#" class="active">Catalogue</a>
-          <ul class="submenu-links">
-            <li><a href="catalogue-perspectives.html">Perspectives</a></li>
-            <li><a href="catalogue-landscapes.html">Landscapes</a></li>
-          </ul>
+    <!-- Simple Static Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-title">PAUL CASSO</div>
+            <ul class="nav-links">
+                <li><a href="Home.html" class="active">Gallery</a></li>
+                <li><a href="catalogue-perspectives.html">Perspectives</a></li>
+                <li><a href="catalogue-landscapes.html">Landscapes</a></li>
+                <li><a href="bio.html">Artist Bio</a></li>
+            </ul>
         </div>
-      </li>
-      <li><a href="bio.html">Artist Bio</a></li>
-    </ul>
-  </div>
-</nav>
+    </nav>
 
-    <!-- Hero Section -->
+    <!-- Enhanced Hero Section -->
     <header class="hero">
         <h1>The Art of PAUL CASSO</h1>
-        <div class="header-divider"></div>
+        <p> </p>
+        <p> </p>
         <p class="hero-text">Contemporary works 2024–2025</p>
     </header>
 
-    <!-- Featured Art Grid (2 columns) -->
+    <!-- Enhanced Featured Art Grid with Clickable Navigation -->
     <section class="featured-grid">
         <div class="art-preview">
-            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250427_142841.jpg" alt="Summer Rain">
-            <h3>Perceptions Series</h3>
-            <p>2025</p>
+            <a href="catalogue-perspectives.html" class="art-link">
+                <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250427_142841.jpg" alt="Perceptions Series artwork" loading="lazy">
+                <h3>Perceptions Series</h3>
+                <p>2025</p>
+            </a>
         </div>
         <div class="art-preview">
-            <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250607_152052.jpg
-" alt="The Old Bridge">
-            <h3>Landscapes Series</h3>
-            <p>2025</p>
+            <a href="catalogue-landscapes.html" class="art-link">
+                <img src="https://raw.githubusercontent.com/paulcasso25/Art/main/20250607_152052.jpg" alt="Landscapes Series artwork" loading="lazy">
+                <h3>Landscapes Series</h3>
+                <p>2025</p>
+            </a>
         </div>
-    
     </section>
 
-    <!-- Call-to-Action -->
+    <!-- Enhanced Call-to-Action -->
     <section class="cta">
         <a href="catalogue.html" class="btn">View Full Catalogue</a>
         <a href="bio.html" class="btn btn-outline">Artist Statement</a>
     </section>
 
-    <!-- Footer -->
+    <!-- Enhanced Footer -->
     <footer>
         <p>© LD Gallery/Paul Casso 2025</p>
     </footer>

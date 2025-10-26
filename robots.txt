@@ -1,0 +1,11 @@
+# robots.txt for PAUL CASSO Art Gallery
+
+User-agent: *
+Allow: /
+
+# Disallow unnecessary files
+Disallow: /main.html
+
+# Sitemap location
+Sitemap: https://paulcasso-website.netlify.app/sitemap.xml
+
