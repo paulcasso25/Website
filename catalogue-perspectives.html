@@ -263,5 +263,55 @@
           Paul Casso is known as Paul Foxton outside of his artistic realm
         </p>
     </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent">
+        <p>
+            We use cookies to enhance your browsing experience and analyze site traffic. By clicking "Accept All", you consent to our use of cookies. 
+            <a href="#" onclick="alert('Cookie preferences can be managed in your browser settings.')">Learn more</a>
+        </p>
+        <div class="cookie-buttons">
+            <button id="decline-cookies" class="decline-cookie">Decline</button>
+            <button id="accept-cookies" class="accept-cookie">Accept All</button>
+        </div>
+    </div>
+
+    <script>
+        // Cookie Consent Banner
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            
+            // Check if user has already made a choice
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookieConsent.classList.add('show');
+                }, 2000);
+            }
+            
+            // Accept cookies
+            if (acceptBtn) {
+                acceptBtn.addEventListener('click', function() {
+                    localStorage.setItem('cookieConsent', 'accepted');
+                    cookieConsent.style.animation = 'slideUp 0.5s ease-out reverse';
+                    setTimeout(() => {
+                        cookieConsent.classList.remove('show');
+                    }, 500);
+                });
+            }
+            
+            // Decline cookies
+            if (declineBtn) {
+                declineBtn.addEventListener('click', function() {
+                    localStorage.setItem('cookieConsent', 'declined');
+                    cookieConsent.style.animation = 'slideUp 0.5s ease-out reverse';
+                    setTimeout(() => {
+                        cookieConsent.classList.remove('show');
+                    }, 500);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
