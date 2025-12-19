@@ -11,18 +11,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&display=swap');
 
 :root {
-    /* Enhanced Color Palette */
-    --gold: #D4AF37;
-    --gold-light: #E6C866;
-    --gold-dark: #B8941F;
-    --navy: #0A1A2F;
-    --navy-light: #1A2A3F;
-    --navy-dark: #050A15;
-    --cream: #F8F5F0;
-    --cream-light: #FDFCFA;
-    --cream-dark: #F0EDE8;
-    --dark-gray: #2C3E50;
-    --light-gray: #ECF0F1;
+    /* COLOR SCHEME OPTION 1: Charcoal & Warm Copper (Modern Luxury) */
+    /* Uncomment this section and comment Option 2 to use Charcoal/Copper */
+    /*
+    --gold: #C97D60;              /* Warm Copper */
+    --gold-light: #D4A574;        /* Bronze */
+    --gold-dark: #B8654A;         /* Dark Copper */
+    --navy: #1A1A1A;              /* Charcoal Black */
+    --navy-light: #2D2D2D;        /* Dark Gray */
+    --navy-dark: #0F0F0F;         /* Deep Black */
+    --cream: #F5F3F0;             /* Warm White */
+    --cream-light: #FDFCFA;       /* Off White */
+    --cream-dark: #E8E5E0;        /* Soft Beige */
+    --dark-gray: #2D2D2D;         /* Dark Gray */
+    --light-gray: #ECF0F1;        /* Light Gray */
+    --accent-red: #E74C3C;
+    --accent-orange: #F39C12;
+    */
+    
+    /* COLOR SCHEME OPTION 2: Deep Teal & Champagne (Sophisticated Fresh) */
+    /* ACTIVE - Deep Teal & Champagne scheme */
+    --gold: #D4AF37;              /* Champagne Gold */
+    --gold-light: #E6C866;        /* Light Gold */
+    --gold-dark: #B8941F;         /* Dark Gold */
+    --navy: #1B4D5A;              /* Deep Teal */
+    --navy-light: #2A6B7A;        /* Medium Teal */
+    --navy-dark: #0F2E35;          /* Dark Teal */
+    --cream: #F7F5F2;             /* Cream */
+    --cream-light: #FDFCFA;       /* Off White */
+    --cream-dark: #EDEAE5;        /* Warm White */
+    --dark-gray: #2C3E50;         /* Dark Gray */
+    --light-gray: #ECF0F1;        /* Light Gray */
     --accent-red: #E74C3C;
     --accent-orange: #F39C12;
     
@@ -157,12 +176,15 @@ nav {
 }
 
 .nav-title {
-    color: var(--gold);
+    color: var(--gold-light);
     font-family: 'Playfair Display', serif;
     font-size: var(--font-size-2xl);
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-weight: 700;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    display: block;
 }
 
 .nav-links {
@@ -187,16 +209,23 @@ nav {
 }
 
 .nav-links a.active {
-    background: var(--gold);
-    color: var(--navy);
+    background: transparent;
+    color: var(--gold-light);
+    font-weight: 600;
+    border: none;
+    position: relative;
 }
 
-/* Removed complex hover effects */
-
-.nav-links a.active {
-    background: var(--gold);
-    color: var(--navy);
-    box-shadow: var(--shadow-md);
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 2px;
+    background: var(--gold-light);
+    border-radius: 2px;
 }
 
 /* ================ */
@@ -296,12 +325,12 @@ nav {
 /* ENHANCED FEATURED GRID */
 /* ======================= */
 .featured-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(300px, 450px));
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: var(--space-2xl);
     padding: var(--space-2xl) var(--space-xl);
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -311,12 +340,15 @@ nav {
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 /* Removed hover effects for stability */
 
 .art-preview img {
-    height: 320px;
+    height: 400px;
     width: 100%;
     object-fit: cover;
     display: block;
@@ -372,15 +404,15 @@ nav {
 .btn {
     display: inline-block;
     padding: var(--space-md) var(--space-xl);
-    background: var(--gold);
-    color: var(--navy);
+    background: var(--gold) !important;
+    color: var(--navy) !important;
     text-decoration: none;
     border-radius: 8px;
     font-weight: 600;
     font-size: var(--font-size-lg);
     margin: var(--space-sm);
     box-shadow: var(--shadow-md);
-    border: none;
+    border: none !important;
     cursor: pointer;
 }
 
@@ -405,13 +437,13 @@ nav {
 /* ======================= */
 @media (max-width: 768px) {
     .featured-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: var(--space-xl);
         padding: var(--space-xl) var(--space-md);
     }
     
     .art-preview img {
-        height: 280px;
+        height: 300px;
     }
     
     .nav-container {
@@ -509,6 +541,19 @@ textarea:focus {
     position: relative;
     max-width: 500px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Image container within item-card */
+.item-card > img {
+    flex-shrink: 0;
+}
+
+/* Content container within item-card */
+.item-card > .item-info,
+.item-card > a.btn {
+    flex-shrink: 0;
 }
 
 .item-card img {
@@ -516,23 +561,71 @@ textarea:focus {
     max-width: 500px;
     height: 350px;
     object-fit: cover;
-    margin: 0 auto;
+    margin: 0;
     display: block;
+    border-radius: 16px 16px 0 0;
+    position: relative;
+}
+
+/* Sold banner - diagonal overlay */
+.item-card.sold::before {
+    content: "SOLD";
+    position: absolute;
+    top: 20px;
+    right: -35px;
+    background: #DC143C;
+    color: white;
+    padding: 8px 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transform: rotate(45deg);
+    transform-origin: center;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(220, 20, 60, 0.5);
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Optional: Dim the image when sold */
+.item-card.sold img {
+    opacity: 0.7;
+    filter: grayscale(20%);
+}
+
+/* Combined title and details container */
+.item-info {
+    background: var(--cream-light);
+    padding: var(--space-md);
+    margin: 0;
+    border-radius: 0;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 .item-title {
     font-family: 'Playfair Display', serif;
     font-size: var(--font-size-xl);
     color: var(--navy);
-    margin: var(--space-md) var(--space-md) var(--space-sm);
+    margin: 0 0 var(--space-xs) 0;
     font-weight: 600;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 .item-details {
     color: var(--dark-gray);
     font-size: var(--font-size-base);
-    margin: 0 var(--space-md) var(--space-md);
+    margin: 0;
     opacity: 0.8;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
 }
 
 /* Gallery grid - Single column layout */
@@ -745,9 +838,273 @@ textarea:focus {
     }
 }
 
+/* ======================= */
+/* SECURITY & CONTENT PROTECTION */
+/* ======================= */
 
+/* Disable text selection and image dragging */
+body {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
 
+img, canvas {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
 
+/* Only disable pointer events on images outside of interactive containers */
+img:not(.item-card img):not(.art-preview img) {
+    pointer-events: none;
+}
+
+/* Image protection overlay */
+.image-protection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Image containers for watermark positioning */
+.item-card,
+.art-preview {
+    position: relative;
+    z-index: 1;
+}
+
+/* Combined info box styling - no shadow, clean background */
+.item-card .item-info {
+    position: relative;
+    z-index: 2;
+    background: var(--cream-light);
+    padding: var(--space-md);
+    margin: 0;
+    border-radius: 0;
+}
+
+/* Ensure item-card content is visible and properly positioned */
+.item-card .item-title,
+.item-card .item-details {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    width: auto;
+    text-align: left;
+}
+
+.item-card .item-title {
+    margin-bottom: var(--space-xs);
+}
+
+/* Inquire button - separate colored box */
+.item-card a.btn,
+.item-card .btn,
+.item-card a.btn:link,
+.item-card a.btn:visited,
+.item-card a.btn:active,
+.item-card .btn:link,
+.item-card .btn:visited,
+.item-card .btn:active {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    background: var(--gold) !important;
+    background-color: var(--gold) !important;
+    color: var(--navy) !important;
+    border: none !important;
+    padding: var(--space-md) var(--space-lg);
+    font-weight: 600;
+    font-size: var(--font-size-base);
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    border-radius: 0;
+    text-decoration: none;
+}
+
+.item-card a.btn:hover,
+.item-card .btn:hover {
+    background: var(--gold-light) !important;
+    background-color: var(--gold-light) !important;
+    color: var(--navy) !important;
+    box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+/* Visible copyright watermarks on gallery images - positioned on the image */
+.item-card {
+    position: relative;
+}
+
+.item-card img::after {
+    content: '© 2025 PAUL CASSO Art';
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 3px 6px;
+    font-size: 0.49rem;
+    font-weight: 600;
+    border-radius: 2px;
+    z-index: 10;
+    pointer-events: none;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.4px;
+    opacity: 0.9;
+}
+
+/* Fallback watermark using item-card::after if img::after doesn't work */
+.item-card::after {
+    content: '© 2025 PAUL CASSO Art';
+    position: absolute;
+    top: 330px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 3px 6px;
+    font-size: 0.49rem;
+    font-weight: 600;
+    border-radius: 2px;
+    z-index: 10;
+    pointer-events: none;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.4px;
+    opacity: 0.9;
+}
+
+.art-preview::after {
+    content: '© 2025 PAUL CASSO Art';
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 3px 6px;
+    font-size: 0.49rem;
+    font-weight: 600;
+    border-radius: 2px;
+    z-index: 10;
+    pointer-events: none;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.4px;
+    opacity: 0.9;
+}
+
+/* Copyright notice section */
+.copyright-notice {
+    background-color: #f8f9fa;
+    padding: 2rem 20px;
+    margin: 2rem 0;
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+}
+
+.copyright-notice .container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.copyright-notice p {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.copyright-notice a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.copyright-notice a:hover {
+    text-decoration: underline;
+}
+
+/* Footer layout with grid for centering and right alignment */
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-left {
+    margin: 0;
+    opacity: 0.8;
+    text-align: center;
+    grid-column: 2;
+}
+
+.footer-right {
+    margin: 0;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #fff;
+    text-align: right;
+    white-space: nowrap;
+    grid-column: 3;
+    justify-self: end;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+    .footer-left, .footer-right {
+        grid-column: 1;
+        text-align: center;
+    }
+}
+
+/* Allow text selection in specific areas */
+.terms-content,
+.bio-content,
+.contact-section,
+.copyright-notice {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+.terms-content *,
+.bio-content *,
+.contact-section *,
+.copyright-notice * {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+/* Form inputs should allow selection */
+input, textarea {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+}
 
 
 
