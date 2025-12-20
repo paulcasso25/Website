@@ -1036,12 +1036,12 @@ textarea:focus {
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     line-height: 1.6;
-    color: var(--cream-light);
+    color: #ffffff;
     font-weight: 400;
 }
 
 #cookie-consent p a {
-    color: var(--gold-light);
+    color: var(--gold);
     text-decoration: underline;
     font-weight: 500;
 }
@@ -1069,7 +1069,7 @@ textarea:focus {
 
 #cookie-consent .accept-cookie {
     background: rgba(255, 255, 255, 0.1) !important;
-    color: var(--cream-light) !important;
+    color: #ffffff !important;
     border: 2px solid rgba(255, 255, 255, 0.3) !important;
     font-weight: 600 !important;
     font-size: 0.95rem !important;
