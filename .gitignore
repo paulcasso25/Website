@@ -1,0 +1,47 @@
+# Sensitive files - never commit these
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.txt
+credentials.txt
+config.ini
+*.log
+
+# Personal Access Tokens and API keys
+*_token.txt
+*_pat.txt
+*_api_key.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Backup files
+*.bak
+*.backup
+*_backup.*
+
+# Security documentation - DO NOT commit (exposes security architecture)
+SECURITY_*.md
+*SECURITY*.md
+ADVANCED_PROTECTION_MEASURES.md
+WEBSITE_SECURITY_IMPLEMENTATION_GUIDE.md
+SECURITY_ARCHITECTURE_REFERENCE.md
+

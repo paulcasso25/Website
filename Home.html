@@ -63,7 +63,7 @@
         <div class="nav-container">
             <div class="nav-title">PAUL CASSO</div>
             <ul class="nav-links">
-                <li><a href="Home.html" class="active">Gallery</a></li>
+                <li><a href="index.html" class="active">Gallery</a></li>
                 <li><a href="catalogue-perspectives.html">Perspectives</a></li>
                 <li><a href="catalogue-landscapes.html">Landscapes</a></li>
                 <li><a href="bio.html">Artist Bio</a></li>
@@ -97,22 +97,22 @@
         </div>
     </section>
 
-    <!-- Enhanced Call-to-Action -->
-    <section class="cta">
-        <a href="catalogue.html" class="btn">View Full Catalogue</a>
-        <a href="bio.html" class="btn btn-outline">Artist Statement</a>
-    </section>
-
     <!-- Enhanced Footer -->
     <footer>
-        <p>© LD Gallery/Paul Casso 2025</p>
+        <div class="footer-content">
+            <p class="footer-left">&copy; <span id="copyright-year">2025</span> PAUL CASSO Art | All Rights Reserved | <a href="terms-of-use.html" style="color: #00BFFF; font-weight: 600; text-decoration: underline; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Terms of Use</a></p>
+            <p class="footer-right" style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: #fff;">| A v I d Digital |</p>
+        </div>
+        <p style="font-style: italic; color: rgb(229, 229, 102); margin-top: 1rem;">
+         Paul Casso is known as Paul Foxton outside of his artistic realm
+       </p>
     </footer>
 
     <!-- Cookie Consent Banner -->
     <div id="cookie-consent">
         <p>
             We use cookies to enhance your browsing experience and analyze site traffic. By clicking "Accept All", you consent to our use of cookies. 
-            <a href="#" onclick="alert('Cookie preferences can be managed in your browser settings.')">Learn more</a>
+            <a href="#" onclick="showGDPRInfo(); return false;">Learn more</a>
         </p>
         <div class="cookie-buttons">
             <button id="decline-cookies" class="decline-cookie">Decline</button>
@@ -142,7 +142,32 @@
                     setTimeout(() => {
                         cookieConsent.classList.remove('show');
                     }, 500);
+                    // Load analytics after user accepts
+                    loadAnalytics();
                 });
+            }
+            
+            // Load analytics if already accepted
+            if (localStorage.getItem('cookieConsent') === 'accepted') {
+                loadAnalytics();
+            }
+            
+            // Function to load analytics
+            function loadAnalytics() {
+                // Option 1: Plausible Analytics (recommended - requires signup at plausible.io)
+                // Uncomment below and add your domain after signing up
+                /*
+                const script = document.createElement('script');
+                script.defer = true;
+                script.dataset.domain = 'paulcasso-website.netlify.app';
+                script.src = 'https://plausible.io/js/script.js';
+                document.head.appendChild(script);
+                */
+                
+                // Option 2: Simple custom analytics (works immediately, logs to console)
+                const simpleScript = document.createElement('script');
+                simpleScript.src = 'simple-analytics.js';
+                document.head.appendChild(simpleScript);
             }
             
             // Decline cookies
@@ -154,6 +179,42 @@
                         cookieConsent.classList.remove('show');
                     }, 500);
                 });
+            }
+        });
+        
+        // GDPR Contact Information
+        function showGDPRInfo() {
+            const gdprInfo = `
+COOKIE & PRIVACY INFORMATION
+
+We use cookies to:
+- Analyze website traffic and visitor behavior
+- Enhance your browsing experience
+- Track which artworks you view and for how long
+
+Your Rights (GDPR):
+- You can accept or decline cookies at any time
+- You can request access to your data
+- You can request deletion of your data
+- You can withdraw consent at any time
+
+For data protection inquiries, please contact:
+Liam Davis
+Email: liam1davis@icloud.com
+
+Cookie preferences can be managed in your browser settings.
+            `;
+            alert(gdprInfo);
+        }
+    </script>
+    <script src="protection.js"></script>
+    <script src="canvas-protection.js"></script>
+    <script>
+        // Auto-update copyright year
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.getElementById('copyright-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
             }
         });
     </script>

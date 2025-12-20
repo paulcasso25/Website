@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Scheme Preview - PAUL CASSO Art</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+        }
+        
+        .preview-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .scheme-preview {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .scheme-title {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        /* CHARCOAL & COPPER SCHEME */
+        .charcoal-copper .scheme-title {
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+            color: white;
+        }
+        
+        .charcoal-copper .nav-preview {
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+            padding: 1.5rem;
+            color: white;
+        }
+        
+        .charcoal-copper .nav-title {
+            color: #C97D60;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .charcoal-copper .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+        
+        .charcoal-copper .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .charcoal-copper .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .charcoal-copper .nav-links a.active {
+            background: #C97D60;
+            color: #1A1A1A;
+        }
+        
+        .charcoal-copper .hero-preview {
+            background: linear-gradient(135deg, #F5F3F0 0%, #E8E5E0 100%);
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem;
+            border-radius: 8px;
+        }
+        
+        .charcoal-copper .hero-preview h1 {
+            color: #1A1A1A;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .charcoal-copper .hero-preview p {
+            color: #2D2D2D;
+        }
+        
+        .charcoal-copper .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #C97D60 0%, #D4A574 100%);
+            margin: 1rem 0;
+        }
+        
+        .charcoal-copper .footer-preview {
+            background: linear-gradient(135deg, #1A1A1A 0%, #0F0F0F 100%);
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .charcoal-copper .footer-accent {
+            height: 3px;
+            background: linear-gradient(90deg, #C97D60 0%, #D4A574 50%, #C97D60 100%);
+            margin-bottom: 1rem;
+        }
+        
+        /* TEAL & CHAMPAGNE SCHEME */
+        .teal-champagne .scheme-title {
+            background: linear-gradient(135deg, #1B4D5A 0%, #0F2E35 100%);
+            color: white;
+        }
+        
+        .teal-champagne .nav-preview {
+            background: linear-gradient(135deg, #1B4D5A 0%, #0F2E35 100%);
+            padding: 1.5rem;
+            color: white;
+        }
+        
+        .teal-champagne .nav-title {
+            color: #D4AF37;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .teal-champagne .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+        }
+        
+        .teal-champagne .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .teal-champagne .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .teal-champagne .nav-links a.active {
+            background: #D4AF37;
+            color: #1B4D5A;
+        }
+        
+        .teal-champagne .hero-preview {
+            background: linear-gradient(135deg, #F7F5F2 0%, #EDEAE5 100%);
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem;
+            border-radius: 8px;
+        }
+        
+        .teal-champagne .hero-preview h1 {
+            color: #1B4D5A;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .teal-champagne .hero-preview p {
+            color: #2C3E50;
+        }
+        
+        .teal-champagne .accent-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #D4AF37 0%, #E6C866 100%);
+            margin: 1rem 0;
+        }
+        
+        .teal-champagne .footer-preview {
+            background: linear-gradient(135deg, #1B4D5A 0%, #0F2E35 100%);
+            padding: 1.5rem;
+            color: white;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .teal-champagne .footer-accent {
+            height: 3px;
+            background: linear-gradient(90deg, #D4AF37 0%, #E6C866 50%, #D4AF37 100%);
+            margin-bottom: 1rem;
+        }
+        
+        .color-swatches {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            font-weight: 600;
+        }
+        
+        .info-section {
+            padding: 1rem;
+            background: #f9f9f9;
+            margin: 1rem;
+            border-radius: 8px;
+        }
+        
+        .info-section h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .info-section p {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 968px) {
+            .preview-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <!-- CHARCOAL & COPPER PREVIEW -->
+        <div class="scheme-preview charcoal-copper">
+            <div class="scheme-title">Option 1: Charcoal & Warm Copper</div>
+            
+            <div class="nav-preview">
+                <div class="nav-title">PAUL CASSO</div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Gallery</a></li>
+                    <li><a href="#">Perspectives</a></li>
+                    <li><a href="#">Landscapes</a></li>
+                    <li><a href="#">Artist Bio</a></li>
+                </ul>
+            </div>
+            
+            <div class="hero-preview">
+                <h1>The Art of PAUL CASSO</h1>
+                <div class="accent-bar"></div>
+                <p>Contemporary works 2024–2025</p>
+            </div>
+            
+            <div class="color-swatches">
+                <div class="swatch" style="background: #1A1A1A;">Charcoal</div>
+                <div class="swatch" style="background: #2D2D2D;">Dark Gray</div>
+                <div class="swatch" style="background: #C97D60;">Copper</div>
+                <div class="swatch" style="background: #D4A574;">Bronze</div>
+                <div class="swatch" style="background: #F5F3F0; color: #333;">Warm White</div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Modern Luxury</h3>
+                <p>Sophisticated charcoal base with warm copper accents. Perfect for contemporary art collectors. Neutral palette lets artwork shine.</p>
+            </div>
+            
+            <div class="footer-preview">
+                <div class="footer-accent"></div>
+                <p>© 2025 PAUL CASSO Art | All Rights Reserved</p>
+            </div>
+        </div>
+        
+        <!-- TEAL & CHAMPAGNE PREVIEW -->
+        <div class="scheme-preview teal-champagne">
+            <div class="scheme-title">Option 2: Deep Teal & Champagne</div>
+            
+            <div class="nav-preview">
+                <div class="nav-title">PAUL CASSO</div>
+                <ul class="nav-links">
+                    <li><a href="#" class="active">Gallery</a></li>
+                    <li><a href="#">Perspectives</a></li>
+                    <li><a href="#">Landscapes</a></li>
+                    <li><a href="#">Artist Bio</a></li>
+                </ul>
+            </div>
+            
+            <div class="hero-preview">
+                <h1>The Art of PAUL CASSO</h1>
+                <div class="accent-bar"></div>
+                <p>Contemporary works 2024–2025</p>
+            </div>
+            
+            <div class="color-swatches">
+                <div class="swatch" style="background: #1B4D5A;">Deep Teal</div>
+                <div class="swatch" style="background: #0F2E35;">Dark Teal</div>
+                <div class="swatch" style="background: #D4AF37;">Champagne</div>
+                <div class="swatch" style="background: #E6C866;">Light Gold</div>
+                <div class="swatch" style="background: #F7F5F2; color: #333;">Cream</div>
+            </div>
+            
+            <div class="info-section">
+                <h3>Sophisticated Fresh</h3>
+                <p>Fresh teal with elegant champagne gold. Creative and vibrant yet sophisticated. Unique in the art gallery space.</p>
+            </div>
+            
+            <div class="footer-preview">
+                <div class="footer-accent"></div>
+                <p>© 2025 PAUL CASSO Art | All Rights Reserved</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

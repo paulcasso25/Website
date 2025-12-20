@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - PAUL CASSO Art</title>
+    <link rel="stylesheet" href="Styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Simple Static Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-title">PAUL CASSO</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Gallery</a></li>
+                <li><a href="catalogue-perspectives.html">Perspectives</a></li>
+                <li><a href="catalogue-landscapes.html">Landscapes</a></li>
+                <li><a href="bio.html">Artist Bio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Success Message Section -->
+    <section class="contact-section" style="max-width: 600px; margin: 4rem auto; text-align: center;">
+        <h1 style="color: var(--navy); margin-bottom: 1.5rem;">Thank You!</h1>
+        <p style="font-size: var(--font-size-lg); color: var(--dark-gray); margin-bottom: 2rem;">
+            Your inquiry has been received successfully. We'll get back to you as soon as possible.
+        </p>
+        <a href="index.html" class="btn">Return to Gallery</a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-left">&copy; <span id="copyright-year">2025</span> PAUL CASSO Art | All Rights Reserved | <a href="terms-of-use.html" style="color: #00BFFF; font-weight: 600; text-decoration: underline; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Terms of Use</a></p>
+            <p class="footer-right" style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: #fff;">| A v I d Digital |</p>
+        </div>
+        <p style="font-style: italic; color: rgb(229, 229, 102); margin-top: 1rem;">
+         Paul Casso is known as Paul Foxton outside of his artistic realm
+       </p>
+    </footer>
+
+    <script>
+        // Auto-update copyright year
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.getElementById('copyright-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+</html>
+

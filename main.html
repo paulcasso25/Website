@@ -78,8 +78,22 @@
     </section>
 
     <footer>
-        <p>© 2025 LD Gallery. All rights reserved.</p>
+        <div class="footer-content">
+            <p class="footer-left">&copy; <span id="copyright-year">2025</span> PAUL CASSO Art | All Rights Reserved | <a href="terms-of-use.html" style="color: #00BFFF; font-weight: 600; text-decoration: underline; font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Terms of Use</a></p>
+            <p class="footer-right" style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; color: #fff;">| A v I d Digital |</p>
+        </div>
     </footer>
+    <script src="protection.js"></script>
+    <script src="canvas-protection.js"></script>
+    <script>
+        // Auto-update copyright year
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.getElementById('copyright-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,13 @@
+# git-crypt encrypted files
+*.env filter=git-crypt diff=git-crypt
+*_token.txt filter=git-crypt diff=git-crypt
+*_pat.txt filter=git-crypt diff=git-crypt
+*_api_key.txt filter=git-crypt diff=git-crypt
+*_secrets.txt filter=git-crypt diff=git-crypt
+*.key filter=git-crypt diff=git-crypt
+*.pem filter=git-crypt diff=git-crypt
+*_personal.txt filter=git-crypt diff=git-crypt
+*_private.txt filter=git-crypt diff=git-crypt
+*.db filter=git-crypt diff=git-crypt
+*.sqlite filter=git-crypt diff=git-crypt
+
