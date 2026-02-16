@@ -416,6 +416,21 @@ nav {
     cursor: pointer;
 }
 
+/* Override general .btn padding for item-card buttons - must come after general .btn rule */
+.item-card .btn,
+.item-card a.btn,
+.item-card a.btn.btn,
+.item-card .btn.btn,
+.item-card a.inquire-btn,
+.item-card .inquire-btn,
+.item-card > a.btn,
+.item-card > .btn {
+    padding: 1.05rem var(--space-lg) !important;
+    min-height: auto !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+}
+
 .btn:hover {
     background: var(--gold-light);
 }
@@ -436,6 +451,16 @@ nav {
 /* RESPONSIVE DESIGN */
 /* ======================= */
 @media (max-width: 768px) {
+    body {
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
+        box-sizing: border-box;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+    
     .featured-grid {
         flex-direction: column;
         gap: var(--space-xl);
@@ -446,15 +471,41 @@ nav {
         height: 300px;
     }
     
+    nav {
+        padding: var(--space-xs) var(--space-sm);
+        margin-left: calc(-1 * var(--space-sm));
+        margin-right: calc(-1 * var(--space-sm));
+        width: calc(100% + 2 * var(--space-sm));
+    }
+    
     .nav-container {
-        flex-direction: column;
-        padding: var(--space-md);
+        flex-direction: row;
+        padding: 0;
+        gap: var(--space-xs);
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .nav-title {
+        font-size: var(--font-size-base);
+        letter-spacing: 0.05em;
+        padding: 0;
+        flex-shrink: 0;
     }
     
     .nav-links {
-        flex-direction: column;
-        gap: var(--space-sm);
-        margin-top: var(--space-sm);
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+        margin-top: 0;
+        justify-content: flex-end;
+        flex: 1;
+    }
+    
+    .nav-links a {
+        font-size: var(--font-size-xs);
+        padding: var(--space-xs) var(--space-sm);
+        white-space: nowrap;
     }
     
     .hero {
@@ -469,6 +520,20 @@ nav {
     
     .cta {
         padding: var(--space-xl) var(--space-md);
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .contact-section {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: var(--space-md);
+        padding-right: var(--space-md);
+    }
+    
+    .copyright-notice {
+        padding-left: var(--space-sm);
+        padding-right: var(--space-sm);
     }
     
     .btn {
@@ -488,6 +553,7 @@ footer {
     padding: var(--space-xl) var(--space-lg);
     margin-top: var(--space-2xl);
     position: relative;
+    min-height: 80px;
 }
 
 footer::before {
@@ -507,6 +573,7 @@ footer p {
     opacity: 0.9;
     font-weight: 400;
 }
+
 
 /* ======================= */
 /* ADDITIONAL ENHANCEMENTS */
@@ -536,13 +603,162 @@ textarea:focus {
 .item-card {
     background: white;
     border-radius: 16px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: var(--shadow-lg);
     position: relative;
     max-width: 500px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    padding: 0;
+}
+
+.item-card > img {
+    width: 100%;
+    max-width: 500px;
+    height: 350px;
+    object-fit: cover;
+    margin: 0;
+    display: block;
+    order: 1;
+}
+
+.item-card > .item-info {
+    flex-shrink: 0;
+    order: 3;
+}
+
+.item-card > a.btn,
+.item-card > .btn {
+    flex-shrink: 0;
+    order: 4;
+}
+
+.artwork-inspiration {
+    position: relative;
+    width: 100%;
+    background: var(--cream-light);
+    padding: var(--space-md);
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    z-index: 10;
+    order: 2; /* Appears after image (order: 1) but before Enquire button (order: 3) */
+}
+
+/* Ensure inspiration section doesn't affect gallery heading */
+.gallery > h1 {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.artwork-inspiration:empty {
+    display: none;
+}
+
+.inspiration-toggle {
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.inspiration-toggle h2 {
+    color: var(--dark-gray);
+    font-family: 'Inter', sans-serif;
+    font-size: var(--font-size-sm);
+    font-weight: 400;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.toggle-icon {
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--dark-gray);
+    transition: transform 0.3s ease;
+    line-height: 1;
+    opacity: 0.7;
+}
+
+.artwork-inspiration[aria-expanded="true"] .toggle-icon {
+    transform: rotate(45deg);
+}
+
+.inspiration-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    padding: 0;
+    margin-top: 0;
+}
+
+.artwork-inspiration[aria-expanded="true"] .inspiration-content {
+    max-height: 2000px;
+    padding-top: 0.75rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.inspiration-content p {
+    color: var(--dark-gray);
+    font-family: 'Inter', sans-serif;
+    font-size: var(--font-size-xs);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    font-style: italic;
+    opacity: 0.85;
+}
+
+.inspiration-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive styles for inspiration section */
+@media (max-width: 768px) {
+    .gallery {
+        padding-left: var(--space-sm) !important;
+        padding-right: var(--space-sm) !important;
+    }
+    
+    .artwork-inspiration {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        display: block !important;
+        z-index: auto !important;
+        padding: var(--space-md) !important;
+        background: var(--cream-light) !important;
+        order: 2 !important;
+    }
+    
+    .inspiration-toggle h2 {
+        font-size: var(--font-size-xs);
+    }
+    
+    .inspiration-content p {
+        font-size: var(--font-size-xs);
+        line-height: 1.5;
+    }
 }
 
 /* Image container within item-card */
@@ -632,10 +848,15 @@ textarea:focus {
 .gallery {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-xl);
+    gap: var(--space-2xl) !important; /* Clean spacing between artworks - shows page background */
     padding: var(--space-2xl) var(--space-xl);
     max-width: 600px;
     margin: 0 auto;
+}
+
+/* Ensure all item-cards in gallery have proper spacing */
+.gallery > .item-card {
+    margin: 0 !important;
 }
 
 /* Contact form enhancements */
@@ -1185,6 +1406,7 @@ img:not(.item-card img):not(.art-preview img) {
 }
 
 /* Inquire button - separate colored box */
+/* Ensure all item-card buttons have reduced height - must override general .btn rule */
 .item-card a.btn,
 .item-card .btn,
 .item-card a.btn:link,
@@ -1192,7 +1414,11 @@ img:not(.item-card img):not(.art-preview img) {
 .item-card a.btn:active,
 .item-card .btn:link,
 .item-card .btn:visited,
-.item-card .btn:active {
+.item-card .btn:active,
+.item-card .inquire-btn,
+.item-card a.inquire-btn,
+div.item-card > a.btn,
+div.item-card > .btn {
     position: relative;
     z-index: 2;
     display: block;
@@ -1203,12 +1429,15 @@ img:not(.item-card img):not(.art-preview img) {
     background-color: var(--gold) !important;
     color: var(--navy) !important;
     border: none !important;
-    padding: var(--space-md) var(--space-lg);
+    padding: 1.05rem var(--space-lg) !important; /* Reduced vertical padding by 30% (from 1.5rem to 1.05rem) */
     font-weight: 600;
     font-size: var(--font-size-base);
     box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
     border-radius: 0;
     text-decoration: none;
+    min-height: auto !important;
+    height: auto !important;
+    line-height: 1.4 !important;
 }
 
 .item-card a.btn:hover,
@@ -1317,11 +1546,12 @@ img:not(.item-card img):not(.art-preview img) {
 .footer-content {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    align-items: center;
+    align-items: start;
     gap: 1rem;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
 }
 
 .footer-left {
@@ -1337,18 +1567,63 @@ img:not(.item-card img):not(.art-preview img) {
     color: #fff;
     text-align: right;
     white-space: nowrap;
-    grid-column: 3;
-    justify-self: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    right: var(--space-lg);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.footer-right img {
+    max-height: 80px !important;
+    height: 80px !important;
+    width: auto !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    object-fit: contain !important;
 }
 
 @media (max-width: 768px) {
     .footer-content {
         grid-template-columns: 1fr;
         justify-items: center;
+        padding-right: 0;
     }
     .footer-left, .footer-right {
         grid-column: 1;
         text-align: center;
+    }
+    
+    footer p[style*="font-style: italic"] {
+        margin-bottom: 1rem !important;
+    }
+    
+    .footer-right {
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        justify-content: center !important;
+        order: 3;
+    }
+    
+    footer {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 2rem;
+    }
+    
+    footer .footer-content {
+        order: 1;
+    }
+    
+    footer p[style*="font-style: italic"] {
+        order: 2;
     }
 }
 
@@ -1389,19 +1664,41 @@ input, textarea {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
     background: rgba(0, 0, 0, 0.95);
-    z-index: 2000;
-    overflow-y: auto;
+    z-index: 9999;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
     animation: fadeIn 0.3s ease-out;
+    box-sizing: border-box;
 }
 
 .artwork-modal.active {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 0;
+    margin: 0;
+}
+
+/* Remove body and html margins/padding when modal is active */
+html.modal-active,
+body.modal-active,
+html:has(.artwork-modal.active),
+body:has(.artwork-modal.active) {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 @keyframes fadeIn {
@@ -1426,45 +1723,72 @@ input, textarea {
 
 .artwork-modal-content {
     position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
     animation: scaleUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
-.artwork-modal img {
-    max-width: 100%;
-    max-height: 85vh;
+.artwork-modal-content img {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    flex-shrink: 0;
 }
 
 .artwork-modal-info {
-    margin-top: 1.5rem;
-    text-align: center;
+    position: fixed;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    text-align: right;
     color: var(--cream-light);
+    background: rgba(0, 0, 0, 0.85);
+    padding: 1.5rem 2rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    z-index: 10000;
+    pointer-events: none;
+    max-width: 300px;
+    border-left: 3px solid var(--gold-light);
 }
 
 .artwork-modal-info h3 {
     color: var(--gold-light);
     font-family: 'Playfair Display', serif;
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-2xl);
     margin-bottom: 0.5rem;
+    margin-top: 0;
+    font-weight: 600;
 }
 
 .artwork-modal-info p {
     color: var(--cream-light);
     font-size: var(--font-size-lg);
-    opacity: 0.9;
+    opacity: 0.95;
+    margin: 0;
+    line-height: 1.5;
 }
 
 .artwork-modal-back {
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
     background: rgba(255, 255, 255, 0.1);
     color: var(--cream-light);
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -1475,7 +1799,7 @@ input, textarea {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 2001;
+    z-index: 10001;
     backdrop-filter: blur(10px);
 }
 
@@ -1487,9 +1811,9 @@ input, textarea {
 }
 
 .artwork-modal-close {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
     background: rgba(255, 255, 255, 0.1);
     color: var(--cream-light);
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -1499,7 +1823,7 @@ input, textarea {
     font-size: 1.5rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 2001;
+    z-index: 10001;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1514,7 +1838,17 @@ input, textarea {
 
 @media (max-width: 768px) {
     .artwork-modal-content {
-        max-width: 95vw;
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    .artwork-modal img {
+        width: 100vw;
+        height: 100vh;
+    }
+    
+    .artwork-modal-info {
+        display: none !important;
     }
     
     .artwork-modal-back {
@@ -1534,7 +1868,8 @@ input, textarea {
 }
 
 /* Make item-card images clickable */
-.item-card img {
+.item-card img,
+.item-card canvas[data-canvas-converted="true"] {
     cursor: pointer;
     pointer-events: auto !important;
 }
