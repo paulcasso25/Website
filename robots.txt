@@ -5,6 +5,7 @@ Allow: /
 
 # Disallow unnecessary files
 Disallow: /main.html
+Disallow: /control-panel.html
 
 # Sitemap location
 Sitemap: https://paulcasso-website.netlify.app/sitemap.xml

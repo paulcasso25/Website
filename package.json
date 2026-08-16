@@ -1,0 +1,10 @@
+{
+  "name": "paul-casso-website",
+  "private": true,
+  "description": "Static PAUL CASSO gallery; local checks before deploy",
+  "scripts": {
+    "test": "node scripts/verify.mjs",
+    "verify": "node scripts/verify.mjs",
+    "generate": "node html-generator.js"
+  }
+}

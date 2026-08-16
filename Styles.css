@@ -189,9 +189,18 @@ nav {
 
 .nav-links {
     display: flex;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     list-style: none;
     align-items: center;
+}
+
+@media (max-width: 1100px) {
+    .nav-links {
+        gap: var(--space-xs);
+    }
+    .nav-links a {
+        padding: var(--space-xs) var(--space-sm);
+    }
 }
 
 .nav-links a {

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="gallery-site" content="paulcasso">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Control Panel - PAUL CASSO</title>
+    <style>
+        /* Control Panel Specific Styles */
+        body {
+            padding-top: 1rem;
+            background-color: #f5f5f5;
+            font-family: Arial, Calibri, sans-serif;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+        }
+
+        .control-panel-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .panel-header {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .panel-header h1 {
+            color: #1B4D5A;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .panel-section {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .panel-section h2 {
+            color: #1B4D5A;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #1B4D5A;
+            padding-bottom: 0.5rem;
+            font-family: Arial, Calibri;
+        }
+
+        /* Login Form Styles */
+        #loginForm {
+            max-width: 400px;
+            margin: 5rem auto;
+            background-color: #fff;
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        #loginForm h2 {
+            color: #1B4D5A;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-family: Arial, Calibri;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 600;
+            font-family: Arial, Calibri;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: Arial, Calibri;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1B4D5A;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            background-color: #1B4D5A;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0F2E35;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .error-message {
+            color: #dc3545;
+            background-color: #f8d7da;
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success-message {
+            color: #155724;
+            background-color: #d4edda;
+            padding: 0.75rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Add Picture Form */
+        #addPictureForm {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Picture List */
+        .pictures-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .picture-item {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .picture-item.editing {
+            border-color: #1B4D5A;
+            background-color: #eef5f6;
+        }
+
+        .picture-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .picture-preview {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border: 2px solid #ddd;
+        }
+
+        .picture-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .editable-field {
+            margin-bottom: 1rem;
+        }
+
+        .editable-field label {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: Arial, Calibri;
+        }
+
+        .editable-field input,
+        .editable-field select,
+        .editable-field textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .editable-field textarea {
+            min-height: 80px;
+            resize: vertical;
+            font-family: Arial, Calibri;
+        }
+
+        .section-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .section-tab {
+            padding: 0.5rem 1rem;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .section-tab.active {
+            background-color: #1B4D5A;
+            color: #fff;
+        }
+
+        .section-tab:hover {
+            background-color: #ccc;
+        }
+
+        .section-tab.active:hover {
+            background-color: #0F2E35;
+        }
+
+        .panel-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .panel-nav-tab {
+            padding: 0.75rem 1.25rem;
+            background-color: #fff;
+            border: 2px solid #1B4D5A;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #1B4D5A;
+            transition: all 0.3s ease;
+            font-family: Arial, Calibri;
+        }
+
+        .panel-nav-tab:hover {
+            background-color: #eef5f6;
+        }
+
+        .panel-nav-tab.active {
+            background-color: #1B4D5A;
+            color: #fff;
+        }
+
+        .panel-view.hidden {
+            display: none;
+        }
+
+        .delete-picture-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: #f8f9fa;
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .delete-picture-thumb {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            flex-shrink: 0;
+        }
+
+        .delete-picture-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .delete-picture-info h3 {
+            margin: 0 0 0.25rem;
+            color: #1B4D5A;
+            font-size: 1.1rem;
+            font-family: Arial, Calibri;
+        }
+
+        .delete-picture-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+            font-family: Arial, Calibri;
+        }
+
+        .token-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-family: Arial, Calibri;
+        }
+
+        .token-status.configured {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .token-status.not-configured {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* File Upload */
+        .file-upload-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 0.75rem;
+            background-color: #f8f9fa;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: Arial, Calibri;
+        }
+
+        .file-upload-label:hover {
+            border-color: #1B4D5A;
+            background-color: #eef5f6;
+        }
+
+        /* Ensure all text elements use Arial/Calibri */
+        .panel-section small,
+        .panel-section summary,
+        .panel-section h3,
+        .panel-section h4,
+        .panel-section p {
+            font-family: Arial, Calibri;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .file-name {
+            margin-top: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .panel-header-top {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .panel-header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .panel-header-actions a.btn-exit {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        #panelToast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            max-width: 420px;
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            z-index: 4000;
+            font-weight: 600;
+            font-family: Arial, Calibri;
+        }
+
+        #panelToast.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        #panelToast.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .picture-preview-err {
+            color: #721c24;
+            font-size: 0.9rem;
+            margin: 0.5rem 0 0;
+        }
+
+        .restore-repo-image {
+            max-width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        #cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1B4D5A;
+            color: #fff;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: none;
+        }
+
+        #cookie-consent.show {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        #cookie-consent p {
+            flex: 1;
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #ffffff;
+        }
+
+        #cookie-consent p a {
+            color: #D4AF37;
+        }
+
+        #cookie-consent .cookie-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-direction: row-reverse;
+        }
+
+        #cookie-consent button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #cookie-consent .accept-cookie {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        #cookie-consent .decline-cookie {
+            background: #D4AF37;
+            color: #1B4D5A;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form (shown initially) -->
+    <div id="loginForm" class="panel-section">
+        <h2>Admin Login</h2>
+        <form id="loginFormElement" onsubmit="return false;">
+            <div class="form-group">
+                <label for="passwordInput">Password</label>
+                <input type="password" id="passwordInput" required autofocus>
+            </div>
+            <button type="button" class="btn btn-block" onclick="checkPassword()">Login</button>
+            <div id="loginError" class="error-message hidden"></div>
+        </form>
+    </div>
+
+    <!-- Password Change Modal (shown when using default password) -->
+    <div id="passwordChangeModal" class="panel-section hidden" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3000; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.3); max-width: 500px; width: 90%;">
+        <h2>Change Default Password</h2>
+        <p style="color: #666; margin-bottom: 1.5rem;">You're using the default password. For security, please set a new password.</p>
+        <form onsubmit="return false;">
+            <div class="form-group">
+                <label for="newPasswordInput">New Password</label>
+                <input type="password" id="newPasswordInput" required minlength="8" placeholder="Enter your new password">
+                <small style="color: #666; display: block; margin-top: 0.25rem; line-height: 1.5;">Please use a minimum of 8 characters and one of each of the following categories: 1 Capitalised Letter, 1 Number and 1 Special Character (! @ # $ % ^ & * ( ) _ +)</small>
+            </div>
+            <div class="form-group">
+                <label for="confirmPasswordInput">Confirm New Password</label>
+                <input type="password" id="confirmPasswordInput" required minlength="8" placeholder="Re-enter your new password">
+            </div>
+            <div id="passwordChangeError" class="error-message hidden"></div>
+            <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+                <button type="button" class="btn btn-block" onclick="changePassword()">Change Password</button>
+                <button type="button" class="btn" onclick="cancelPasswordChange()" style="background-color: #6c757d;">Skip for Now</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="panelToast" class="hidden" role="status" aria-live="polite"></div>
+
+    <!-- Control Panel (hidden until login) -->
+    <div id="controlPanel" class="hidden">
+        <div class="control-panel-container">
+            <div class="panel-header">
+                <div class="panel-header-top">
+                    <div>
+                        <h1>PAUL CASSO - Control Panel</h1>
+                        <p>Manage gallery images and content</p>
+                    </div>
+                    <div class="panel-header-actions">
+                        <a class="btn btn-secondary btn-exit" href="index.html">← Back to website</a>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="panel-nav" aria-label="Control panel sections">
+                <button type="button" class="panel-nav-tab active" onclick="showPanelView('add', this)">Add</button>
+                <button type="button" class="panel-nav-tab" onclick="showPanelView('edit', this)">Edit</button>
+                <button type="button" class="panel-nav-tab" onclick="showPanelView('delete', this)">Delete</button>
+                <button type="button" class="panel-nav-tab" onclick="showPanelView('token', this)">Token Admin</button>
+            </nav>
+
+            <!-- Add -->
+            <div id="panelViewAdd" class="panel-view panel-section">
+                <h2>Add New Picture</h2>
+                <form id="addPictureForm">
+                    <div class="form-group">
+                        <label for="imageFile">Image File *</label>
+                        <div class="file-upload-wrapper">
+                            <label for="imageFile" class="file-upload-label">
+                                Click to select image file
+                            </label>
+                            <input type="file" id="imageFile" class="file-upload-input" accept="image/*">
+                            <div id="fileName" class="file-name"></div>
+                        </div>
+                        <small style="color: #666; margin-top: 0.5rem; display: block;">
+                            Select an image file to upload directly to GitHub. The Image URL will be auto-generated after upload.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pictureName">Picture Name *</label>
+                        <input type="text" id="pictureName" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pictureSection">Section *</label>
+                            <select id="pictureSection" required>
+                                <option value="">Select a section...</option>
+                                <option value="perspectives">Perspectives</option>
+                                <option value="landscapes">Landscapes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pictureMedium">Medium *</label>
+                            <select id="pictureMedium" required>
+                                <option value="">Select medium...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="imageUrl">Image URL <span id="imageUrlRequired">*</span></label>
+                            <input type="text" id="imageUrl" placeholder="https://raw.githubusercontent.com/paulcasso25/Art/main/...">
+                            <small style="color: #666; margin-top: 0.25rem; display: block;">
+                                Required if not uploading a file. Auto-filled if uploading.
+                            </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pictureYear">Year (optional)</label>
+                            <input type="text" id="pictureYear" placeholder="2026">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pictureNotes">Inspiration notes (optional)</label>
+                        <textarea id="pictureNotes" lang="en" spellcheck="true" placeholder="Enter inspiration notes about this artwork..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pictureSold" style="display:flex; align-items:center; gap:0.5rem;">
+                            <input type="checkbox" id="pictureSold" style="width:auto;">
+                            Mark as sold
+                        </label>
+                    </div>
+
+                    <button type="button" class="btn btn-block" onclick="addPicture()">Add Picture</button>
+                    <div id="addPictureMessage"></div>
+                </form>
+            </div>
+
+            <!-- Edit -->
+            <div id="panelViewEdit" class="panel-view panel-section hidden">
+                <h2>Edit Existing Pictures</h2>
+                
+                <div class="section-tabs" id="editSectionTabs">
+                    <button type="button" class="section-tab active" onclick="showSection('all', this)">All Sections</button>
+                    <button type="button" class="section-tab" onclick="showSection('perspectives', this)">Perspectives</button>
+                    <button type="button" class="section-tab" onclick="showSection('landscapes', this)">Landscapes</button>
+                </div>
+
+                <div id="picturesList" class="pictures-list">
+                    <!-- Pictures will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Delete -->
+            <div id="panelViewDelete" class="panel-view panel-section hidden">
+                <h2>Delete Pictures</h2>
+                <p style="color: #666; margin-bottom: 1.5rem;">Select a picture below to remove it from the gallery. Changes publish to the website automatically when your GitHub token is configured.</p>
+
+                <div class="section-tabs" id="deleteSectionTabs">
+                    <button type="button" class="section-tab active" onclick="showSection('all', this)">All Sections</button>
+                    <button type="button" class="section-tab" onclick="showSection('perspectives', this)">Perspectives</button>
+                    <button type="button" class="section-tab" onclick="showSection('landscapes', this)">Landscapes</button>
+                </div>
+
+                <div id="picturesDeleteList" class="pictures-list">
+                    <!-- Delete targets loaded here -->
+                </div>
+            </div>
+
+            <!-- Token Admin -->
+            <div id="panelViewToken" class="panel-view panel-section hidden">
+                <h2>Token Admin</h2>
+                <p style="color: #666; margin-bottom: 1rem;">One-time setup per browser. After the GitHub token is saved, use <strong>Add</strong>, <strong>Edit</strong>, and <strong>Delete</strong> only — return here if the token expires or needs replacing.</p>
+                <div id="tokenAdminStatus" class="token-status not-configured" role="status">Not configured</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <button type="button" class="btn" onclick="saveGitHubToken()">Save Token</button>
+                    <button type="button" class="btn btn-secondary" onclick="clearGitHubToken()">Clear Token</button>
+                </div>
+                <small style="color: #666; margin-top: 1rem; display: block; line-height: 1.5;">
+                    Create a token at <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreferrer">GitHub Settings → Developer settings → Personal access tokens</a> with <code>repo</code> scope. The token is stored in this browser only.
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner (GDPR) -->
+    <div id="cookie-consent">
+        <p>
+            We use cookies to enhance your browsing experience and analyze site traffic. By clicking "Accept All", you consent to our use of cookies.
+            <a href="#" onclick="showGDPRInfo(); return false;">Learn more</a>
+        </p>
+        <div class="cookie-buttons">
+            <button type="button" id="decline-cookies" class="decline-cookie">Decline</button>
+            <button type="button" id="accept-cookies" class="accept-cookie">Accept All</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cookieConsent = document.getElementById('cookie-consent');
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => cookieConsent.classList.add('show'), 2000);
+            }
+
+            function loadAnalytics() {
+                if (window.__paulCassoAnalyticsLoaded) return;
+                window.__paulCassoAnalyticsLoaded = true;
+                const s = document.createElement('script');
+                s.src = 'simple-analytics.js';
+                document.head.appendChild(s);
+            }
+
+            if (acceptBtn) {
+                acceptBtn.addEventListener('click', function() {
+                    localStorage.setItem('cookieConsent', 'accepted');
+                    cookieConsent.style.animation = 'slideUp 0.5s ease-out reverse';
+                    setTimeout(() => cookieConsent.classList.remove('show'), 500);
+                    loadAnalytics();
+                });
+            }
+
+            if (localStorage.getItem('cookieConsent') === 'accepted') {
+                loadAnalytics();
+            }
+
+            if (declineBtn) {
+                declineBtn.addEventListener('click', function() {
+                    localStorage.setItem('cookieConsent', 'declined');
+                    cookieConsent.style.animation = 'slideUp 0.5s ease-out reverse';
+                    setTimeout(() => cookieConsent.classList.remove('show'), 500);
+                });
+            }
+        });
+
+        function showGDPRInfo() {
+            alert(`
+COOKIE & PRIVACY INFORMATION
+
+We use cookies to:
+- Analyze website traffic and visitor behavior
+- Enhance your browsing experience
+- Track which artworks you view and for how long
+
+Your Rights (GDPR):
+- You can accept or decline cookies at any time
+- You can request access to your data
+- You can request deletion of your data
+- You can withdraw consent at any time
+
+For data protection inquiries, please contact:
+Liam Davis
+Email: liam1davis@icloud.com
+
+See also: Terms of Use (section 10, Privacy and Data Protection).
+
+Cookie preferences can be managed in your browser settings.`.trim());
+        }
+    </script>
+    <script src="html-generator.js?v=20260817-1"></script>
+    <script src="control-panel.js?v=20260817-1"></script>
+</body>
+</html>
