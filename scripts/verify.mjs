@@ -211,6 +211,64 @@ function checkHtmlGenerator(galleryData) {
     pass('html-generator.js — catalogue HTML includes Admin nav and artwork');
 }
 
+function checkFreeAnalytics() {
+    const extraJs = [
+        join(ROOT, 'scripts', 'analytics-lib.js'),
+        join(ROOT, 'netlify', 'functions', 'analytics.js')
+    ];
+    extraJs.forEach((full) => {
+        const result = spawnSync(process.execPath, ['--check', full], { encoding: 'utf8' });
+        const name = full.slice(ROOT.length + 1);
+        if (result.status !== 0) {
+            fail(`${name} — syntax error`);
+            if (result.stderr) console.error(result.stderr);
+        } else {
+            pass(`${name} — syntax OK`);
+        }
+    });
+
+    const simple = readFileSync(join(ROOT, 'simple-analytics.js'), 'utf8');
+    if (simple.includes('plausible.io')) {
+        fail('simple-analytics.js — still references Plausible');
+    }
+    if (!simple.includes('sendBeacon') || !simple.includes('/.netlify/functions/analytics')) {
+        fail('simple-analytics.js — missing free analytics endpoint');
+    } else {
+        pass('simple-analytics.js — posts to free Netlify store');
+    }
+
+    let lib;
+    try {
+        lib = require(join(ROOT, 'scripts', 'analytics-lib.js'));
+    } catch (e) {
+        fail(`analytics-lib.js — ${e.message}`);
+        return;
+    }
+    const pageview = lib.sanitizeEvent({
+        site: 'paulcasso',
+        event: 'pageview',
+        page: '/catalogue-perspectives.html',
+        referrerHost: 'direct',
+        region: 'United Kingdom',
+        screen: 'desktop',
+        timeOnPage: 0,
+        artworks: []
+    }, 'paulcasso');
+    const day = lib.applyEvent(lib.emptyDay(), pageview);
+    if (!pageview || day.pageviews !== 1 || day.pages['/catalogue-perspectives.html'] !== 1) {
+        fail('analytics-lib.js — pageview aggregation failed');
+    } else {
+        pass('analytics-lib.js — pageview aggregation OK');
+    }
+
+    const panel = readFileSync(join(ROOT, 'control-panel.html'), 'utf8');
+    if (!panel.includes('panelViewAnalytics') || !panel.includes('Analytics')) {
+        fail('control-panel.html — missing Analytics tab');
+    } else {
+        pass('control-panel.html — Analytics tab present');
+    }
+}
+
 console.log('Local verify (pre-push)\n');
 checkJavaScriptSyntax();
 console.log('');
@@ -221,6 +279,8 @@ console.log('');
 checkAdminNav();
 console.log('');
 checkHtmlGenerator(galleryData);
+console.log('');
+checkFreeAnalytics();
 
 if (failures > 0) {
     console.error(`\n${failures} check(s) failed. Fix issues before pushing to GitHub.\n`);

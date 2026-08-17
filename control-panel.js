@@ -528,6 +528,7 @@ function showPanelView(view, clickedButton) {
         add: document.getElementById('panelViewAdd'),
         edit: document.getElementById('panelViewEdit'),
         delete: document.getElementById('panelViewDelete'),
+        analytics: document.getElementById('panelViewAnalytics'),
         token: document.getElementById('panelViewToken')
     };
     Object.keys(views).forEach((key) => {
@@ -541,6 +542,9 @@ function showPanelView(view, clickedButton) {
     }
     if (view === 'token') {
         loadGitHubTokenStatus();
+    }
+    if (view === 'analytics' && typeof loadAnalyticsDashboard === 'function') {
+        loadAnalyticsDashboard();
     }
 }
 

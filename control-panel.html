@@ -478,6 +478,25 @@
             margin-top: 0.5rem;
         }
 
+        .analytics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0.75rem 0 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .analytics-table th,
+        .analytics-table td {
+            text-align: left;
+            padding: 0.5rem 0.6rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .panel-section h3 {
+            margin-top: 1.25rem;
+            color: #1B4D5A;
+        }
+
         #cookie-consent {
             position: fixed;
             bottom: 0;
@@ -594,6 +613,7 @@
                 <button type="button" class="panel-nav-tab active" onclick="showPanelView('add', this)">Add</button>
                 <button type="button" class="panel-nav-tab" onclick="showPanelView('edit', this)">Edit</button>
                 <button type="button" class="panel-nav-tab" onclick="showPanelView('delete', this)">Delete</button>
+                <button type="button" class="panel-nav-tab" onclick="showPanelView('analytics', this)">Analytics</button>
                 <button type="button" class="panel-nav-tab" onclick="showPanelView('token', this)">Token Admin</button>
             </nav>
 
@@ -701,6 +721,14 @@
                 </div>
             </div>
 
+            <!-- Analytics -->
+            <div id="panelViewAnalytics" class="panel-view panel-section hidden">
+                <h2>Site Analytics</h2>
+                <p style="color: #666; margin-bottom: 1rem;">Free in-site analytics for visitors who accept cookies. Counts start after this is deployed. No Plausible fees.</p>
+                <button type="button" class="btn" onclick="loadAnalyticsDashboard()">Refresh</button>
+                <div id="analyticsDashboard" style="margin-top: 1.5rem;"></div>
+            </div>
+
             <!-- Token Admin -->
             <div id="panelViewToken" class="panel-view panel-section hidden">
                 <h2>Token Admin</h2>
@@ -794,6 +822,7 @@ Cookie preferences can be managed in your browser settings.`.trim());
         }
     </script>
     <script src="html-generator.js?v=20260817-1"></script>
-    <script src="control-panel.js?v=20260817-1"></script>
+    <script src="analytics-dashboard.js?v=20260817-1"></script>
+    <script src="control-panel.js?v=20260817-2"></script>
 </body>
 </html>

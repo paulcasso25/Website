@@ -1,0 +1,6 @@
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[functions.analytics]
+  included_files = ["scripts/analytics-lib.js"]
