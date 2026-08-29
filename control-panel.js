@@ -477,7 +477,6 @@ async function loadGalleryData() {
     try {
         setupFileUpload();
         loadGitHubTokenStatus();
-        loadSimpleAnalyticsStatus();
         void refreshArtExamplesPickers();
         if (!hasGitHubToken()) {
             showPanelView('token', document.querySelector('.panel-nav-tab[onclick*="token"]'));
@@ -549,77 +548,6 @@ function clearGitHubToken() {
     loadGitHubTokenStatus();
 }
 
-const SIMPLE_ANALYTICS_API_KEY_STORAGE = 'simple_analytics_api_key';
-const SIMPLE_ANALYTICS_USER_ID_STORAGE = 'simple_analytics_user_id';
-
-function loadSimpleAnalyticsStatus() {
-    const statusEl = document.getElementById('simpleAnalyticsStatus');
-    if (!statusEl) return;
-    let configured = false;
-    try {
-        configured = !!(localStorage.getItem(SIMPLE_ANALYTICS_API_KEY_STORAGE) || '').trim()
-            && !!(localStorage.getItem(SIMPLE_ANALYTICS_USER_ID_STORAGE) || '').trim();
-    } catch (e) {
-        configured = false;
-    }
-    statusEl.textContent = configured ? 'Configured ✓' : 'Not configured';
-    statusEl.className = configured ? 'token-status configured' : 'token-status not-configured';
-}
-
-function saveSimpleAnalyticsKeys() {
-    let existingKey = '';
-    let existingId = '';
-    try {
-        existingKey = (localStorage.getItem(SIMPLE_ANALYTICS_API_KEY_STORAGE) || '').trim();
-        existingId = (localStorage.getItem(SIMPLE_ANALYTICS_USER_ID_STORAGE) || '').trim();
-    } catch (e) {
-        /* ignore */
-    }
-    const apiKeyEntered = prompt(existingKey ? 'Enter Simple Analytics API key (cancel to keep current):' : 'Enter Simple Analytics API key:');
-    if (apiKeyEntered === null) return;
-    const userIdEntered = prompt(existingId ? 'Enter Simple Analytics User ID (cancel to keep current):' : 'Enter Simple Analytics User ID:');
-    if (userIdEntered === null) return;
-
-    const apiKey = apiKeyEntered.trim() || existingKey;
-    const userId = userIdEntered.trim() || existingId;
-    if (!apiKey || !userId) {
-        showPanelToast('API key and User ID are both required.', true);
-        return;
-    }
-    try {
-        localStorage.setItem(SIMPLE_ANALYTICS_API_KEY_STORAGE, apiKey);
-        localStorage.setItem(SIMPLE_ANALYTICS_USER_ID_STORAGE, userId);
-        showPanelToast('Simple Analytics keys saved.', false);
-        loadSimpleAnalyticsStatus();
-    } catch (e) {
-        showPanelToast('Failed to save Simple Analytics keys.', true);
-    }
-}
-
-function clearSimpleAnalyticsKeys() {
-    let hasKeys = false;
-    try {
-        hasKeys = !!(localStorage.getItem(SIMPLE_ANALYTICS_API_KEY_STORAGE) || localStorage.getItem(SIMPLE_ANALYTICS_USER_ID_STORAGE));
-    } catch (e) {
-        hasKeys = false;
-    }
-    if (!hasKeys) {
-        showPanelToast('No Simple Analytics keys are saved in this browser.', false);
-        return;
-    }
-    if (!confirm('Remove the saved Simple Analytics keys from this browser?')) {
-        return;
-    }
-    try {
-        localStorage.removeItem(SIMPLE_ANALYTICS_API_KEY_STORAGE);
-        localStorage.removeItem(SIMPLE_ANALYTICS_USER_ID_STORAGE);
-    } catch (e) {
-        console.warn('Could not clear Simple Analytics keys:', e);
-    }
-    showPanelToast('Simple Analytics keys cleared.', false);
-    loadSimpleAnalyticsStatus();
-}
-
 function showPanelView(view, clickedButton) {
     currentPanelView = view;
     const views = {
@@ -640,7 +568,6 @@ function showPanelView(view, clickedButton) {
     }
     if (view === 'token') {
         loadGitHubTokenStatus();
-        loadSimpleAnalyticsStatus();
     }
     if (view === 'analytics' && typeof loadAnalyticsDashboard === 'function') {
         loadAnalyticsDashboard();

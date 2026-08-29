@@ -746,7 +746,6 @@
             <div id="panelViewToken" class="panel-view panel-section hidden">
                 <h2>Token Admin</h2>
                 <p style="color: #666; margin-bottom: 1rem;">One-time setup per browser. After the GitHub token is saved, use <strong>Add</strong>, <strong>Edit</strong>, and <strong>Delete</strong> only — return here if the token expires or needs replacing.</p>
-                <h3>GitHub</h3>
                 <div id="tokenAdminStatus" class="token-status not-configured" role="status">Not configured</div>
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
                     <button type="button" class="btn" onclick="saveGitHubToken()">Save Token</button>
@@ -755,21 +754,12 @@
                 <small style="color: #666; margin-top: 1rem; display: block; line-height: 1.5;">
                     Create a token at <a href="https://github.com/settings/tokens" target="_blank" rel="noopener noreferrer">GitHub Settings → Developer settings → Personal access tokens</a> with <code>repo</code> scope. The token is stored in this browser only.
                 </small>
-                <h3>Simple Analytics</h3>
-                <div id="simpleAnalyticsStatus" class="token-status not-configured" role="status">Not configured</div>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                    <button type="button" class="btn" onclick="saveSimpleAnalyticsKeys()">Save keys</button>
-                    <button type="button" class="btn btn-secondary" onclick="clearSimpleAnalyticsKeys()">Clear</button>
-                </div>
-                <small style="color: #666; margin-top: 1rem; display: block; line-height: 1.5;">
-                    From <a href="https://dashboard.simpleanalytics.com/account" target="_blank" rel="noopener noreferrer">Simple Analytics → Account</a>: API key and User ID. Optional. The free plan does not include API keys — set the website to Public in Simple Analytics Settings instead.
-                </small>
             </div>
         </div>
     </div>
 
     <script src="html-generator.js?v=20260817-1"></script>
-    <script src="analytics-dashboard.js?v=20260829-3"></script>
+    <script src="analytics-dashboard.js?v=20260829-4"></script>
     <script src="control-panel.js?v=20260829-4"></script>
     <!-- 100% privacy-first analytics -->
     <script async data-hostname="art-of-paulcasso.netlify.app" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>

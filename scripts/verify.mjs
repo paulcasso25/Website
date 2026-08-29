@@ -226,6 +226,7 @@ function checkHtmlGenerator(galleryData) {
 function checkFreeAnalytics() {
     const extraJs = [
         join(ROOT, 'scripts', 'analytics-lib.js'),
+        join(ROOT, 'scripts', 'archive-simple-analytics.mjs'),
         join(ROOT, 'netlify', 'functions', 'analytics.js')
     ];
     extraJs.forEach((full) => {
@@ -316,16 +317,22 @@ function checkFreeAnalytics() {
     }
 
     const panelJs = readFileSync(join(ROOT, 'control-panel.js'), 'utf8');
-    if (!panelJs.includes('function saveSimpleAnalyticsKeys')) {
-        fail('control-panel.js — missing Simple Analytics key save');
+    if (panelJs.includes('function saveSimpleAnalyticsKeys') || panel.includes('saveSimpleAnalyticsKeys()')) {
+        fail('Token Admin still has Simple Analytics API key controls');
     } else {
-        pass('control-panel.js — Simple Analytics keys can be saved');
+        pass('Token Admin — GitHub token only');
     }
 
-    if (!panel.includes('saveSimpleAnalyticsKeys()')) {
-        fail('control-panel.html — missing Simple Analytics Token Admin controls');
+    const archiveJs = readFileSync(join(ROOT, 'scripts', 'archive-simple-analytics.mjs'), 'utf8');
+    const workflow = readFileSync(join(ROOT, '.github', 'workflows', 'archive-simple-analytics.yml'), 'utf8');
+    if (!dash.includes('simple-analytics-archive.json')) {
+        fail('analytics-dashboard.js — missing archive figures');
+    } else if (!archiveJs.includes('art-of-paulcasso.netlify.app') && !workflow.includes('art-of-paulcasso.netlify.app')) {
+        fail('archive workflow — missing Paul Casso hostname');
+    } else if (!workflow.includes('cron:')) {
+        fail('archive workflow — missing monthly schedule');
     } else {
-        pass('control-panel.html — Simple Analytics Token Admin present');
+        pass('Simple Analytics monthly archive is configured');
     }
 
     let hostnameOk = true;

@@ -4,8 +4,6 @@
 
     const SA_HOSTNAME = 'art-of-paulcasso.netlify.app';
     const SA_FIELDS = 'visitors,pageviews,histogram,pages,referrers,countries,device_types,seconds_on_page';
-    const SA_API_KEY_STORAGE = 'simple_analytics_api_key';
-    const SA_USER_ID_STORAGE = 'simple_analytics_user_id';
 
     const PAGE_NAMES = {
         '/': 'Home',
@@ -34,19 +32,6 @@
 
     function analyticsUrl() {
         return `https://simpleanalytics.com/${SA_HOSTNAME}.json?version=6&fields=${encodeURIComponent(SA_FIELDS)}&start=today-30d&end=today&timezone=Europe/London`;
-    }
-
-    function analyticsHeaders() {
-        const headers = { Accept: 'application/json' };
-        try {
-            const apiKey = (localStorage.getItem(SA_API_KEY_STORAGE) || '').trim();
-            const userId = (localStorage.getItem(SA_USER_ID_STORAGE) || '').trim();
-            if (apiKey) headers['Api-Key'] = apiKey;
-            if (userId) headers['User-Id'] = userId;
-        } catch (e) {
-            /* ignore */
-        }
-        return headers;
     }
 
     function escapeHtml(text) {
@@ -136,15 +121,6 @@
         return `<section class="analytics-block"><h3>${escapeHtml(title)}</h3>${html}</section>`;
     }
 
-    function hasSimpleAnalyticsKeys() {
-        try {
-            return !!(localStorage.getItem(SA_API_KEY_STORAGE) || '').trim()
-                && !!(localStorage.getItem(SA_USER_ID_STORAGE) || '').trim();
-        } catch (e) {
-            return false;
-        }
-    }
-
     function errorMessage(data) {
         const apiError = data && data.error ? String(data.error) : '';
         if (/api-key/i.test(apiError) || /not found/i.test(apiError)) {
@@ -153,12 +129,35 @@
         return apiError || 'Could not load analytics.';
     }
 
+    async function loadArchive() {
+        try {
+            const res = await fetch('simple-analytics-archive.json', { cache: 'no-store' });
+            if (!res.ok) return { snapshots: [] };
+            const data = await res.json();
+            return data && typeof data === 'object' ? data : { snapshots: [] };
+        } catch (e) {
+            return { snapshots: [] };
+        }
+    }
+
+    function archiveSection(snapshots) {
+        const rows = (snapshots || []).slice().reverse().map((item) => [
+            `${formatDate(item.start)} – ${formatDate(item.end)}`,
+            item.visitors || 0,
+            item.pageviews || 0
+        ]);
+        if (!rows.length) return '';
+        return section('Archive', table(['Period', 'Visitors', 'Page views'], rows));
+    }
+
     window.loadAnalyticsDashboard = async function loadAnalyticsDashboard() {
         const root = document.getElementById('analyticsDashboard');
         if (!root) return;
         root.innerHTML = '<p>Loading visitor figures…</p>';
+        const archive = await loadArchive();
+        const archived = archiveSection(archive.snapshots);
         try {
-            const res = await fetch(analyticsUrl(), { headers: analyticsHeaders() });
+            const res = await fetch(analyticsUrl(), { headers: { Accept: 'application/json' } });
             const data = await res.json().catch(() => ({}));
             if (!res.ok || data.ok === false) {
                 throw new Error(errorMessage(data));
@@ -185,9 +184,10 @@
                     return String(host).replace(/^www\./, '');
                 }, 'pageviews'))}
                 ${section('Device', rankedList(data.device_types, screenName, 'pageviews'))}
+                ${archived}
             `;
         } catch (e) {
-            root.innerHTML = `<p>${escapeHtml(e.message || 'Could not load analytics.')}</p>`;
+            root.innerHTML = `<p>${escapeHtml(e.message || 'Could not load analytics.')}</p>${archived}`;
         }
     };
 })();
