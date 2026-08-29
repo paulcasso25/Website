@@ -158,88 +158,8 @@ function getFooterMarkup() {
     </footer>`;
 }
 
-function getCookieConsentMarkup() {
-    return `    <!-- Cookie Consent Banner -->
-    <div id="cookie-consent">
-        <p>
-            We use cookies to enhance your browsing experience and analyze site traffic. By clicking "Accept All", you consent to our use of cookies. 
-            <a href="#" onclick="showGDPRInfo(); return false;">Learn more</a>
-        </p>
-        <div class="cookie-buttons">
-            <button id="decline-cookies" class="decline-cookie">Decline</button>
-            <button id="accept-cookies" class="accept-cookie">Accept All</button>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cookieConsent = document.getElementById('cookie-consent');
-            const acceptBtn = document.getElementById('accept-cookies');
-            const declineBtn = document.getElementById('decline-cookies');
-            
-            if (!localStorage.getItem('cookieConsent')) {
-                setTimeout(() => {
-                    cookieConsent.classList.add('show');
-                }, 2000);
-            }
-            
-            if (acceptBtn) {
-                acceptBtn.addEventListener('click', function() {
-                    localStorage.setItem('cookieConsent', 'accepted');
-                    cookieConsent.style.animation = 'slideUp 0.5s ease-out reverse';
-                    setTimeout(() => {
-                        cookieConsent.classList.remove('show');
-                    }, 500);
-                    loadAnalytics();
-                });
-            }
-            
-            if (localStorage.getItem('cookieConsent') === 'accepted') {
-                loadAnalytics();
-            }
-            
-            function loadAnalytics() {
-                const simpleScript = document.createElement('script');
-                simpleScript.src = 'simple-analytics.js';
-                document.head.appendChild(simpleScript);
-            }
-            
-            if (declineBtn) {
-                declineBtn.addEventListener('click', function() {
-                    localStorage.setItem('cookieConsent', 'declined');
-                    cookieConsent.style.animation = 'slideUp 0.5s ease-out reverse';
-                    setTimeout(() => {
-                        cookieConsent.classList.remove('show');
-                    }, 500);
-                });
-            }
-        });
-        
-        function showGDPRInfo() {
-            const gdprInfo = \`
-COOKIE & PRIVACY INFORMATION
-
-We use cookies to:
-- Analyze website traffic and visitor behavior
-- Enhance your browsing experience
-- Track which artworks you view and for how long
-
-Your Rights (GDPR):
-- You can accept or decline cookies at any time
-- You can request access to your data
-- You can request deletion of your data
-- You can withdraw consent at any time
-
-For data protection inquiries, please contact:
-Liam Davis
-Email: liam1davis@icloud.com
-
-Cookie preferences can be managed in your browser settings.
-            \`;
-            alert(gdprInfo);
-        }
-    </script>
-    <script src="protection.js"></script>
+function getPageClosingScripts() {
+    return `    <script src="protection.js"></script>
     <script src="canvas-protection.js"></script>
     <script src="artwork-modals.js"></script>
     <script src="inspiration-toggle.js"></script>
@@ -250,7 +170,9 @@ Cookie preferences can be managed in your browser settings.
                 yearSpan.textContent = new Date().getFullYear();
             }
         });
-    </script>`;
+    </script>
+    <!-- 100% privacy-first analytics -->
+    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>`;
 }
 
 function generateStructuredData(sectionId, pictures, metadata, pageUrl) {
@@ -344,7 +266,7 @@ ${getContactFormMarkup()}
 
 ${getFooterMarkup()}
 
-${getCookieConsentMarkup()}
+${getPageClosingScripts()}
 </body>
 </html>
 `;

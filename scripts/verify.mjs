@@ -123,6 +123,9 @@ function checkControlPanelUi() {
     if (!html.includes('Edit Existing Pictures')) {
         fail('control-panel.html — missing Edit Existing Pictures section');
     }
+    if (!html.includes('id="usernameInput"')) {
+        fail('control-panel.html — missing username login field');
+    }
     if (!html.includes('Token Admin') || !html.includes('panelViewDelete')) {
         fail('control-panel.html — missing panel submenu views');
     } else {
@@ -138,6 +141,9 @@ function checkControlPanelUi() {
         return;
     }
 
+    if (!js.includes('ADMIN_ACCOUNTS') || !js.includes('paulcasso25@gmail.com') || !js.includes('liam1davis@icloud.com') || !js.includes('isAllowedAdminLogin')) {
+        fail('control-panel.js — hardcoded admin username/password access control missing');
+    }
     if (!js.includes("owner: 'paulcasso25'") || !js.includes("imageRepo: 'Art'")) {
         fail('control-panel.js — GitHub config does not target paulcasso25 Website/Art');
     }
@@ -207,6 +213,12 @@ function checkHtmlGenerator(galleryData) {
         if (key === 'perspectives' && !html.includes('item-card sold')) {
             fail(`${files[key].filename} — Remembrance should remain marked sold`);
         }
+        if (html.includes('id="cookie-consent"')) {
+            fail(`${files[key].filename} — generated page still has cookie consent banner`);
+        }
+        if (!html.includes('scripts.simpleanalyticscdn.com/latest.js')) {
+            fail(`${files[key].filename} — generated page missing official Simple Analytics`);
+        }
     }
     pass('html-generator.js — catalogue HTML includes Admin nav and artwork');
 }
@@ -266,6 +278,32 @@ function checkFreeAnalytics() {
         fail('control-panel.html — missing Analytics tab');
     } else {
         pass('control-panel.html — Analytics tab present');
+    }
+
+    const publicPages = [
+        'index.html',
+        'Home.html',
+        'bio.html',
+        'catalogue-perspectives.html',
+        'catalogue-landscapes.html',
+        'control-panel.html',
+        'terms-of-use.html',
+        'success.html'
+    ];
+    let analyticsOk = true;
+    for (const name of publicPages) {
+        const html = readFileSync(join(ROOT, name), 'utf8');
+        if (html.includes('id="cookie-consent"')) {
+            fail(`${name} — cookie consent banner still present`);
+            analyticsOk = false;
+        }
+        if (!html.includes('scripts.simpleanalyticscdn.com/latest.js')) {
+            fail(`${name} — missing official Simple Analytics script`);
+            analyticsOk = false;
+        }
+    }
+    if (analyticsOk) {
+        pass('public pages — official Simple Analytics, no cookie banner');
     }
 }
 

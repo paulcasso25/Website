@@ -79,8 +79,24 @@ function initPictureMediumDropdown() {
 // - At least 12 characters long
 // - Not dictionary words or personal information
 //
-// Default password hash (initial password)
-const DEFAULT_PASSWORD_HASH = '751d3802f3db8cd910f2a6cacbbf1faf820b218cb8c3c0dd6a06188ce737c5c2'; // Password: &Can1989non
+// Hardcoded admin accounts. These are the source of truth on every browser/device.
+const ADMIN_ACCOUNTS = [
+    { username: 'paulcasso25@gmail.com', passwordHash: '1e507289c05463991092232386e152671e633312641fa04736d547c116801c56' },
+    { username: 'liam1davis@icloud.com', passwordHash: 'c0fc9cb57c5c4577399aec1dfa502c265055d92c06f9fb004a247d8f25222cca' }
+];
+
+function normalizeAdminUsername(value) {
+    return String(value || '').trim().toLowerCase();
+}
+
+function isAllowedAdminLogin(username, passwordHash) {
+    const user = normalizeAdminUsername(username);
+    return ADMIN_ACCOUNTS.some((account) => account.username === user && account.passwordHash === passwordHash);
+}
+
+function isHardcodedAdminHash(passwordHash) {
+    return ADMIN_ACCOUNTS.some((account) => account.passwordHash === passwordHash);
+}
 
 /**
  * Auto-login for the admin console only (same browser). This is not the account password.
@@ -145,7 +161,7 @@ function tryRestoreControlPanelSession() {
         return false;
     }
     if (!stored) return false;
-    if (stored === getPasswordHash()) {
+    if (isHardcodedAdminHash(stored)) {
         loginForm.classList.add('hidden');
         controlPanel.classList.remove('hidden');
         loadGalleryData();
@@ -173,7 +189,7 @@ function getPasswordHash() {
             }
         }
     }
-    return storedHash || DEFAULT_PASSWORD_HASH;
+    return storedHash || (ADMIN_ACCOUNTS[0] && ADMIN_ACCOUNTS[0].passwordHash) || '';
 }
 
 // Set new password hash (persists both localStorage and cookie so “clear cache” is less likely to drop the password alone)
@@ -204,19 +220,26 @@ async function sha256(message) {
 
 // Check password on login
 async function checkPassword() {
+    const usernameInput = document.getElementById('usernameInput');
     const passwordInput = document.getElementById('passwordInput');
     const loginError = document.getElementById('loginError');
     const loginForm = document.getElementById('loginForm');
     const controlPanel = document.getElementById('controlPanel');
     
-    const password = passwordInput.value.trim(); // Trim whitespace
+    const username = usernameInput ? usernameInput.value.trim() : '';
+    const password = passwordInput.value.trim();
+    if (!username) {
+        loginError.textContent = 'Please enter a username';
+        loginError.classList.remove('hidden');
+        if (usernameInput) usernameInput.focus();
+        return;
+    }
     if (!password) {
         loginError.textContent = 'Please enter a password';
         loginError.classList.remove('hidden');
         return;
     }
     
-    // Hash the entered password and compare
     let hash;
     try {
         hash = await sha256(password);
@@ -226,28 +249,13 @@ async function checkPassword() {
         return;
     }
     
-    // Get current password hash
-    const currentPasswordHash = getPasswordHash();
-    
-    if (hash === currentPasswordHash) {
-        // Check if using default password - prompt to change
-        if (hash === DEFAULT_PASSWORD_HASH) {
-            // Using default password - prompt to change
-            showPasswordChangePrompt();
-            return;
-        }
-        
-        // Correct password - show control panel (mirror hash to cookie so it survives some cache clears)
+    if (isAllowedAdminLogin(username, hash)) {
         persistControlPanelSession(hash);
-        writePasswordHashCookie(hash);
         loginForm.classList.add('hidden');
         controlPanel.classList.remove('hidden');
-        
-        // Load gallery data
         loadGalleryData();
     } else {
-        // Incorrect password
-        loginError.textContent = 'Incorrect password. Access denied.';
+        loginError.textContent = 'Incorrect username or password. Access denied.';
         loginError.classList.remove('hidden');
         passwordInput.value = '';
         passwordInput.focus();
@@ -356,26 +364,44 @@ function cancelPasswordChange() {
     const loginForm = document.getElementById('loginForm');
     const controlPanel = document.getElementById('controlPanel');
     
-    passwordChangeModal.classList.add('hidden');
-    loginForm.classList.add('hidden');
-    controlPanel.classList.remove('hidden');
-    
-    persistControlPanelSession(DEFAULT_PASSWORD_HASH);
-    // Load gallery data
-    loadGalleryData();
+    if (passwordChangeModal) passwordChangeModal.classList.add('hidden');
+    if (loginForm) loginForm.classList.remove('hidden');
+    if (controlPanel) controlPanel.classList.add('hidden');
+}
+
+function allowCredentialClipboard() {
+    const ids = ['usernameInput', 'passwordInput', 'newPasswordInput', 'confirmPasswordInput'];
+    ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        ['paste', 'copy', 'cut'].forEach((evt) => {
+            el.addEventListener(evt, (e) => e.stopPropagation());
+        });
+        el.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && ['v', 'c', 'x', 'a'].includes(e.key.toLowerCase())) {
+                e.stopPropagation();
+            }
+        });
+    });
 }
 
 // Allow Enter key to submit login form
 document.addEventListener('DOMContentLoaded', function() {
     initPictureMediumDropdown();
+    allowCredentialClipboard();
     tryRestoreControlPanelSession();
+    const usernameInput = document.getElementById('usernameInput');
     const passwordInput = document.getElementById('passwordInput');
+    function submitOnEnter(e) {
+        if (e.key === 'Enter') {
+            checkPassword();
+        }
+    }
+    if (usernameInput) {
+        usernameInput.addEventListener('keypress', submitOnEnter);
+    }
     if (passwordInput) {
-        passwordInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkPassword();
-            }
-        });
+        passwordInput.addEventListener('keypress', submitOnEnter);
     }
     const addFromRepo = document.getElementById('addImageFromRepo');
     if (addFromRepo) {

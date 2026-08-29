@@ -107,6 +107,16 @@
             border-color: #1B4D5A;
         }
 
+        #usernameInput,
+        #passwordInput,
+        #newPasswordInput,
+        #confirmPasswordInput {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
         .form-group textarea {
             min-height: 120px;
             resize: vertical;
@@ -562,8 +572,12 @@
         <h2>Admin Login</h2>
         <form id="loginFormElement" onsubmit="return false;">
             <div class="form-group">
+                <label for="usernameInput">Username</label>
+                <input type="email" id="usernameInput" autocomplete="username" required autofocus>
+            </div>
+            <div class="form-group">
                 <label for="passwordInput">Password</label>
-                <input type="password" id="passwordInput" required autofocus>
+                <input type="password" id="passwordInput" autocomplete="current-password" required>
             </div>
             <button type="button" class="btn btn-block" onclick="checkPassword()">Login</button>
             <div id="loginError" class="error-message hidden"></div>
@@ -724,7 +738,6 @@
             <!-- Analytics -->
             <div id="panelViewAnalytics" class="panel-view panel-section hidden">
                 <h2>Site Analytics</h2>
-                <p style="color: #666; margin-bottom: 1rem;">Free in-site analytics for visitors who accept cookies. Counts start after this is deployed. No Plausible fees.</p>
                 <button type="button" class="btn" onclick="loadAnalyticsDashboard()">Refresh</button>
                 <div id="analyticsDashboard" style="margin-top: 1.5rem;"></div>
             </div>
@@ -745,84 +758,10 @@
         </div>
     </div>
 
-    <!-- Cookie Consent Banner (GDPR) -->
-    <div id="cookie-consent">
-        <p>
-            We use cookies to enhance your browsing experience and analyze site traffic. By clicking "Accept All", you consent to our use of cookies.
-            <a href="#" onclick="showGDPRInfo(); return false;">Learn more</a>
-        </p>
-        <div class="cookie-buttons">
-            <button type="button" id="decline-cookies" class="decline-cookie">Decline</button>
-            <button type="button" id="accept-cookies" class="accept-cookie">Accept All</button>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const cookieConsent = document.getElementById('cookie-consent');
-            const acceptBtn = document.getElementById('accept-cookies');
-            const declineBtn = document.getElementById('decline-cookies');
-
-            if (!localStorage.getItem('cookieConsent')) {
-                setTimeout(() => cookieConsent.classList.add('show'), 2000);
-            }
-
-            function loadAnalytics() {
-                if (window.__paulCassoAnalyticsLoaded) return;
-                window.__paulCassoAnalyticsLoaded = true;
-                const s = document.createElement('script');
-                s.src = 'simple-analytics.js';
-                document.head.appendChild(s);
-            }
-
-            if (acceptBtn) {
-                acceptBtn.addEventListener('click', function() {
-                    localStorage.setItem('cookieConsent', 'accepted');
-                    cookieConsent.style.animation = 'slideUp 0.5s ease-out reverse';
-                    setTimeout(() => cookieConsent.classList.remove('show'), 500);
-                    loadAnalytics();
-                });
-            }
-
-            if (localStorage.getItem('cookieConsent') === 'accepted') {
-                loadAnalytics();
-            }
-
-            if (declineBtn) {
-                declineBtn.addEventListener('click', function() {
-                    localStorage.setItem('cookieConsent', 'declined');
-                    cookieConsent.style.animation = 'slideUp 0.5s ease-out reverse';
-                    setTimeout(() => cookieConsent.classList.remove('show'), 500);
-                });
-            }
-        });
-
-        function showGDPRInfo() {
-            alert(`
-COOKIE & PRIVACY INFORMATION
-
-We use cookies to:
-- Analyze website traffic and visitor behavior
-- Enhance your browsing experience
-- Track which artworks you view and for how long
-
-Your Rights (GDPR):
-- You can accept or decline cookies at any time
-- You can request access to your data
-- You can request deletion of your data
-- You can withdraw consent at any time
-
-For data protection inquiries, please contact:
-Liam Davis
-Email: liam1davis@icloud.com
-
-See also: Terms of Use (section 10, Privacy and Data Protection).
-
-Cookie preferences can be managed in your browser settings.`.trim());
-        }
-    </script>
     <script src="html-generator.js?v=20260817-1"></script>
     <script src="analytics-dashboard.js?v=20260817-1"></script>
-    <script src="control-panel.js?v=20260817-2"></script>
+    <script src="control-panel.js?v=20260829-2"></script>
+    <!-- 100% privacy-first analytics -->
+    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 </body>
 </html>
