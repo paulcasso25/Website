@@ -18,10 +18,18 @@ function initializeModals() {
         // Initialize inquire modals
         initInquireModals();
         
-        // Re-initialize after a longer delay to catch any late-loading images
+        // Re-initialize multiple times to catch lazy-loaded images
         setTimeout(function() {
             initArtworkModals();
         }, 500);
+        
+        setTimeout(function() {
+            initArtworkModals();
+        }, 1000);
+        
+        setTimeout(function() {
+            initArtworkModals();
+        }, 2000);
     }, 300);
     
     // Listen for canvas conversion events from canvas-protection.js
@@ -66,26 +74,84 @@ function initArtworkModals() {
     const itemCards = document.querySelectorAll('.item-card');
     
     itemCards.forEach(card => {
-        // Check for both img and canvas (canvas-protection.js converts images to canvas)
-        const img = card.querySelector('img:not([data-modal-handled])');
-        const canvas = card.querySelector('canvas[data-canvas-converted="true"]:not([data-modal-handled])');
-        const imageElement = canvas || img; // Prefer canvas if both exist
+        // Use event delegation on the card level - this works even if images are converted to canvas
+        // Only attach handler once per card to avoid duplicates
+        if (card.hasAttribute('data-modal-initialized')) {
+            // Card already has handler, but ensure images/canvases are clickable
+            const img = card.querySelector('img');
+            const canvas = card.querySelector('canvas[data-canvas-converted="true"]');
+            const imageElement = canvas || img;
+            if (imageElement) {
+                imageElement.style.cursor = 'pointer';
+                imageElement.style.pointerEvents = 'auto';
+            }
+            return; // Already initialized
+        }
         
-        if (imageElement) {
-            // Mark as handled to avoid duplicate handlers
-            imageElement.setAttribute('data-modal-handled', 'true');
+        card.setAttribute('data-modal-initialized', 'true');
+        
+        // Add click handler to the card, but only trigger on image/canvas clicks
+        card.addEventListener('click', function(e) {
+            // Don't trigger if clicking on buttons, links, or inspiration section
+            const target = e.target;
+            if (target.closest('a.btn, .btn, .inquire-btn, .artwork-inspiration, .inspiration-toggle, .inspiration-content, .item-info')) {
+                return;
+            }
             
-            // Ensure image/canvas is clickable
-            imageElement.style.cursor = 'pointer';
-            imageElement.style.pointerEvents = 'auto';
+            // Get the image/canvas element (prefer canvas if both exist) - check fresh each time
+            const img = card.querySelector('img');
+            const canvas = card.querySelector('canvas[data-canvas-converted="true"]');
+            const imageElement = canvas || img;
             
-            // Add click handler to image/canvas
-            imageElement.addEventListener('click', function(e) {
+            if (!imageElement) {
+                return;
+            }
+            
+            // Check if click is directly on image/canvas
+            if (target === imageElement || 
+                target.tagName === 'IMG' || 
+                (target.tagName === 'CANVAS' && target.dataset.canvasConverted === 'true')) {
                 e.preventDefault();
                 e.stopPropagation();
                 openArtworkModal(imageElement, card);
-            }, { once: false });
-        }
+                return;
+            }
+            
+            // Check if click is within the image's bounding box (for overlay elements)
+            const rect = imageElement.getBoundingClientRect();
+            const clickX = e.clientX;
+            const clickY = e.clientY;
+            
+            if (clickX >= rect.left && clickX <= rect.right && 
+                clickY >= rect.top && clickY <= rect.bottom) {
+                // Click is within image bounds, but not on a button/inspiration section
+                e.preventDefault();
+                e.stopPropagation();
+                openArtworkModal(imageElement, card);
+            }
+        }, { once: false });
+        
+        // Ensure images and canvases are clickable - check again after delays for lazy-loaded images
+        const ensureClickable = function() {
+            const img = card.querySelector('img');
+            const canvas = card.querySelector('canvas[data-canvas-converted="true"]');
+            const imageElement = canvas || img;
+            
+            if (imageElement) {
+                imageElement.style.cursor = 'pointer';
+                imageElement.style.pointerEvents = 'auto';
+                // Also ensure the card itself allows pointer events
+                card.style.pointerEvents = 'auto';
+            }
+        };
+        
+        ensureClickable();
+        
+        // Re-check after delays to catch lazy-loaded images
+        setTimeout(ensureClickable, 100);
+        setTimeout(ensureClickable, 500);
+        setTimeout(ensureClickable, 1000);
+        setTimeout(ensureClickable, 2000);
     });
 }
 
@@ -159,7 +225,7 @@ function openArtworkModal(imageElement, card) {
     // Update modal content - use img tag for display (not canvas)
     const content = modal.querySelector('.artwork-modal-content');
     content.innerHTML = `
-        <img src="${imageSrc}" alt="${imageAlt || title}" style="max-width: 100%; height: auto; display: block;">
+        <img src="${imageSrc}" alt="${imageAlt || title}">
         <div class="artwork-modal-info">
             <h3>${title}</h3>
             <p>${details}</p>
@@ -185,14 +251,28 @@ function openArtworkModal(imageElement, card) {
     
     // Show modal
     modal.classList.add('active');
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.margin = '0';
+    document.documentElement.style.padding = '0';
+    document.documentElement.classList.add('modal-active');
     document.body.style.overflow = 'hidden';
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    document.body.classList.add('modal-active');
 }
 
 function closeArtworkModal() {
     const modal = document.getElementById('artwork-modal');
     if (modal) {
         modal.classList.remove('active');
+        document.documentElement.style.overflow = '';
+        document.documentElement.style.margin = '';
+        document.documentElement.style.padding = '';
+        document.documentElement.classList.remove('modal-active');
         document.body.style.overflow = '';
+        document.body.style.margin = '';
+        document.body.style.padding = '';
+        document.body.classList.remove('modal-active');
     }
 }
 
@@ -249,7 +329,7 @@ function openInquireEmail(card) {
     content.className = 'inquire-modal-content';
     content.innerHTML = `
         <button class="inquire-modal-close" onclick="closeInquireModal()">×</button>
-        <h2>Inquire About Artwork</h2>
+        <h2>Enquire About Artwork</h2>
         <form name="contact" netlify netlify-honeypot="bot-field" action="/success.html">
             <p class="hidden">
                 <label>Don't fill this out if you're human: <input name="bot-field"></label>
