@@ -1,6 +1,11 @@
-// Admin Analytics dashboard — visitor-facing language only.
+// Admin Analytics dashboard — Simple Analytics Stats API.
 (function() {
     'use strict';
+
+    const SA_HOSTNAME = 'art-of-paulcasso.netlify.app';
+    const SA_FIELDS = 'visitors,pageviews,histogram,pages,referrers,countries,device_types,seconds_on_page';
+    const SA_API_KEY_STORAGE = 'simple_analytics_api_key';
+    const SA_USER_ID_STORAGE = 'simple_analytics_user_id';
 
     const PAGE_NAMES = {
         '/': 'Home',
@@ -17,32 +22,31 @@
         '/terms-of-use.html': 'Terms of Use',
         'terms-of-use.html': 'Terms of Use',
         '/success.html': 'Enquiry received',
-        'success.html': 'Enquiry received',
-        '/dc-characters.html': 'DC Characters',
-        'dc-characters.html': 'DC Characters',
-        '/marvel-characters.html': 'Marvel Characters',
-        'marvel-characters.html': 'Marvel Characters',
-        '/music-legends.html': 'Music Legends',
-        'music-legends.html': 'Music Legends',
-        '/recovery-art.html': 'Recovery Art',
-        'recovery-art.html': 'Recovery Art',
-        '/miscellaneous.html': 'Miscellaneous',
-        'miscellaneous.html': 'Miscellaneous'
+        'success.html': 'Enquiry received'
     };
 
     const SCREEN_NAMES = {
         mobile: 'Phone',
         tablet: 'Tablet',
-        desktop: 'Computer'
+        desktop: 'Computer',
+        tv: 'TV'
     };
 
-    function analyticsEndpoint() {
-        const host = (location.hostname || '').toLowerCase();
-        const base = (host.includes('cannon-art') || host.includes('github.io'))
-            ? 'https://paulcasso-website.netlify.app/.netlify/functions/analytics'
-            : '/.netlify/functions/analytics';
-        const site = (host.includes('cannon-art') || host.includes('github.io')) ? 'cannon-art' : 'paulcasso';
-        return `${base}?site=${encodeURIComponent(site)}&days=30`;
+    function analyticsUrl() {
+        return `https://simpleanalytics.com/${SA_HOSTNAME}.json?version=6&fields=${encodeURIComponent(SA_FIELDS)}&start=today-30d&end=today&timezone=Europe/London`;
+    }
+
+    function analyticsHeaders() {
+        const headers = { Accept: 'application/json' };
+        try {
+            const apiKey = (localStorage.getItem(SA_API_KEY_STORAGE) || '').trim();
+            const userId = (localStorage.getItem(SA_USER_ID_STORAGE) || '').trim();
+            if (apiKey) headers['Api-Key'] = apiKey;
+            if (userId) headers['User-Id'] = userId;
+        } catch (e) {
+            /* ignore */
+        }
+        return headers;
     }
 
     function escapeHtml(text) {
@@ -63,9 +67,15 @@
         return file.replace(/\.html$/i, '').replace(/[-_]/g, ' ') || 'Home';
     }
 
-    function referrerName(host) {
-        if (!host || host === 'direct') return 'Direct visit';
-        return host.replace(/^www\./, '');
+    function countryName(code) {
+        const raw = String(code || '').trim();
+        if (!raw) return 'Unknown';
+        try {
+            const name = new Intl.DisplayNames(['en'], { type: 'region' }).of(raw);
+            return name || raw;
+        } catch (e) {
+            return raw;
+        }
     }
 
     function screenName(key) {
@@ -73,13 +83,13 @@
     }
 
     function formatDate(iso) {
-        const d = new Date(iso + 'T00:00:00Z');
+        const d = new Date(String(iso).slice(0, 10) + 'T00:00:00Z');
         if (Number.isNaN(d.getTime())) return iso;
         return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
     }
 
     function formatSeconds(total) {
-        const n = Math.max(0, Number(total) || 0);
+        const n = Math.max(0, Math.round(Number(total) || 0));
         if (n < 60) return n + ' sec';
         const m = Math.floor(n / 60);
         const s = n % 60;
@@ -99,44 +109,26 @@
         return `<table class="analytics-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
     }
 
-    function rankedTable(map, nameFn) {
-        const entries = Object.keys(map || {}).map((key) => ({
-            name: nameFn ? nameFn(key) : key,
-            value: map[key]
-        })).sort((a, b) => b.value - a.value);
-        return table(['Name', 'Visits'], entries.slice(0, 15).map((row) => [row.name, row.value]));
+    function rankedList(items, nameFn, valueKey) {
+        const rows = (items || [])
+            .map((item) => ({
+                name: nameFn ? nameFn(item.value) : item.value,
+                value: item[valueKey] || item.pageviews || 0
+            }))
+            .filter((row) => row.value > 0)
+            .sort((a, b) => b.value - a.value)
+            .slice(0, 15)
+            .map((row) => [row.name, row.value]);
+        return table(['Name', 'Visits'], rows);
     }
 
-    function timeTable(totals) {
-        const pages = Object.keys(totals.timeSum || {});
-        const rows = pages.map((page) => {
-            const count = totals.timeCount[page] || 1;
-            const avg = Math.round((totals.timeSum[page] || 0) / count);
-            return { name: pageName(page), avg };
-        }).sort((a, b) => b.avg - a.avg);
-        return table(['Page', 'Average time'], rows.map((row) => [row.name, formatSeconds(row.avg)]));
-    }
-
-    function artworkTable(artworks) {
-        const rows = Object.keys(artworks || {}).map((id) => {
-            const a = artworks[id];
-            return {
-                name: a.name || id,
-                viewTime: a.viewTime || 0,
-                hoverCount: a.hoverCount || 0,
-                clickCount: a.clickCount || 0
-            };
-        }).sort((a, b) => (b.viewTime + b.clickCount * 5) - (a.viewTime + a.clickCount * 5));
-        return table(
-            ['Artwork', 'Time viewed', 'Looked at', 'Opened'],
-            rows.slice(0, 20).map((a) => [a.name, formatSeconds(a.viewTime), a.hoverCount, a.clickCount])
-        );
-    }
-
-    function recentDays(days) {
-        const withCounts = (days || []).filter((d) => d && d.pageviews > 0);
+    function recentDays(histogram) {
+        const withCounts = (histogram || []).filter((d) => d && (d.pageviews > 0 || d.visitors > 0));
         if (!withCounts.length) return '';
-        const latest = withCounts.slice(-7).map((d) => `${formatDate(d.date)} · ${d.pageviews}`);
+        const latest = withCounts.slice(-7).map((d) => {
+            const date = d.date || d.created || '';
+            return `${formatDate(date)} · ${d.pageviews || 0}`;
+        });
         return `<p class="analytics-recent">${escapeHtml(latest.join('  |  '))}</p>`;
     }
 
@@ -144,32 +136,58 @@
         return `<section class="analytics-block"><h3>${escapeHtml(title)}</h3>${html}</section>`;
     }
 
+    function hasSimpleAnalyticsKeys() {
+        try {
+            return !!(localStorage.getItem(SA_API_KEY_STORAGE) || '').trim()
+                && !!(localStorage.getItem(SA_USER_ID_STORAGE) || '').trim();
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function errorMessage(data) {
+        const apiError = data && data.error ? String(data.error) : '';
+        if (/api-key/i.test(apiError) || !hasSimpleAnalyticsKeys()) {
+            return 'Simple Analytics is private. Save the API key and User ID under Token Admin, then refresh.';
+        }
+        return apiError || 'Could not load analytics.';
+    }
+
     window.loadAnalyticsDashboard = async function loadAnalyticsDashboard() {
         const root = document.getElementById('analyticsDashboard');
         if (!root) return;
         root.innerHTML = '<p>Loading visitor figures…</p>';
         try {
-            const res = await fetch(analyticsEndpoint(), { headers: { Accept: 'application/json' } });
-            if (!res.ok) throw new Error('unavailable');
-            const data = await res.json();
-            const totals = data.totals || {};
-            const visits = totals.pageviews || 0;
-            const summary = visits === 1
-                ? '1 visit in the last 30 days.'
-                : `${visits} visits in the last 30 days.`;
+            const res = await fetch(analyticsUrl(), { headers: analyticsHeaders() });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok || data.ok === false) {
+                throw new Error(errorMessage(data));
+            }
+
+            const visitors = data.visitors || 0;
+            const pageviews = data.pageviews || 0;
+            const timeOnPage = data.seconds_on_page;
+            const summaryParts = [
+                visitors === 1 ? '1 visitor' : `${visitors} visitors`,
+                pageviews === 1 ? '1 page view' : `${pageviews} page views`
+            ];
+            if (timeOnPage != null && timeOnPage !== '') {
+                summaryParts.push(formatSeconds(timeOnPage) + ' on page');
+            }
 
             root.innerHTML = `
-                <p class="analytics-summary">${escapeHtml(summary)}</p>
-                ${recentDays(data.days)}
-                ${section('Pages', rankedTable(totals.pages, pageName))}
-                ${section('Artworks', artworkTable(totals.artworks))}
-                ${section('Time on page', timeTable(totals))}
-                ${section('Location', rankedTable(totals.regions))}
-                ${section('How people arrived', rankedTable(totals.referrers, referrerName))}
-                ${section('Device', rankedTable(totals.screens, screenName))}
+                <p class="analytics-summary">${escapeHtml(summaryParts.join(' · ') + '.')}</p>
+                ${recentDays(data.histogram)}
+                ${section('Pages', rankedList(data.pages, pageName, 'pageviews'))}
+                ${section('Location', rankedList(data.countries, countryName, 'pageviews'))}
+                ${section('How people arrived', rankedList(data.referrers, (host) => {
+                    if (!host || host === 'direct') return 'Direct visit';
+                    return String(host).replace(/^www\./, '');
+                }, 'pageviews'))}
+                ${section('Device', rankedList(data.device_types, screenName, 'pageviews'))}
             `;
         } catch (e) {
-            root.innerHTML = '<p>Visitor figures are unavailable at the moment. Please try again shortly.</p>';
+            root.innerHTML = `<p>${escapeHtml(e.message || 'Could not load analytics.')}</p>`;
         }
     };
 })();

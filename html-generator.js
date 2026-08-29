@@ -172,7 +172,7 @@ function getPageClosingScripts() {
         });
     </script>
     <!-- 100% privacy-first analytics -->
-    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>`;
+    <script async data-hostname="art-of-paulcasso.netlify.app" src="https://scripts.simpleanalyticscdn.com/latest.js"></script>`;
 }
 
 function generateStructuredData(sectionId, pictures, metadata, pageUrl) {

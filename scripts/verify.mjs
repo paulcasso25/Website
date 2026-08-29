@@ -216,7 +216,7 @@ function checkHtmlGenerator(galleryData) {
         if (html.includes('id="cookie-consent"')) {
             fail(`${files[key].filename} — generated page still has cookie consent banner`);
         }
-        if (!html.includes('scripts.simpleanalyticscdn.com/latest.js')) {
+        if (!html.includes('scripts.simpleanalyticscdn.com/latest.js') || !html.includes('data-hostname="art-of-paulcasso.netlify.app"')) {
             fail(`${files[key].filename} — generated page missing official Simple Analytics`);
         }
     }
@@ -304,6 +304,40 @@ function checkFreeAnalytics() {
     }
     if (analyticsOk) {
         pass('public pages — official Simple Analytics, no cookie banner');
+    }
+
+    const dash = readFileSync(join(ROOT, 'analytics-dashboard.js'), 'utf8');
+    if (!dash.includes('art-of-paulcasso.netlify.app') || !dash.includes('simpleanalytics.com/')) {
+        fail('analytics-dashboard.js — not reading Paul Casso Simple Analytics');
+    } else if (dash.includes('paulcasso-website.netlify.app')) {
+        fail('analytics-dashboard.js — still using old Netlify store URL');
+    } else {
+        pass('analytics-dashboard.js — Simple Analytics for art-of-paulcasso.netlify.app');
+    }
+
+    const panelJs = readFileSync(join(ROOT, 'control-panel.js'), 'utf8');
+    if (!panelJs.includes('function saveSimpleAnalyticsKeys')) {
+        fail('control-panel.js — missing Simple Analytics key save');
+    } else {
+        pass('control-panel.js — Simple Analytics keys can be saved');
+    }
+
+    if (!panel.includes('saveSimpleAnalyticsKeys()')) {
+        fail('control-panel.html — missing Simple Analytics Token Admin controls');
+    } else {
+        pass('control-panel.html — Simple Analytics Token Admin present');
+    }
+
+    let hostnameOk = true;
+    for (const name of publicPages) {
+        const html = readFileSync(join(ROOT, name), 'utf8');
+        if (!html.includes('data-hostname="art-of-paulcasso.netlify.app"')) {
+            fail(`${name} — Simple Analytics missing art-of-paulcasso.netlify.app hostname`);
+            hostnameOk = false;
+        }
+    }
+    if (hostnameOk) {
+        pass('public pages — Simple Analytics hostname is art-of-paulcasso.netlify.app');
     }
 }
 
