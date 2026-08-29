@@ -147,8 +147,8 @@
 
     function errorMessage(data) {
         const apiError = data && data.error ? String(data.error) : '';
-        if (/api-key/i.test(apiError) || !hasSimpleAnalyticsKeys()) {
-            return 'Simple Analytics is private. Save the API key and User ID under Token Admin, then refresh.';
+        if (/api-key/i.test(apiError) || /not found/i.test(apiError)) {
+            return 'Set this website to Public in Simple Analytics Settings, then refresh.';
         }
         return apiError || 'Could not load analytics.';
     }
