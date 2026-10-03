@@ -192,6 +192,15 @@
         "sold": false,
         "alt": "Red sky with moonlight painting",
         "notes": ""
+      },
+      {
+        "id": "land-010",
+        "name": "City Reflections",
+        "imageUrl": "https://raw.githubusercontent.com/paulcasso25/Art/main/city_reflections.JPEG",
+        "medium": "Acrylic on Canvas",
+        "notes": "When I painted \"City Reflections,\" I wasn't trying to capture a skyline - I was trying to hold onto a feeling.\n\nI remember standing by the water one evening and realizing the city existed twice: once in stone and glass, and once again, softer and trembling, on the river's surface. That doubled world felt like a quiet secret, and I wanted to keep it.\n\nThe blue came first. It's the colour of in-between hours, when the day has ended but night hasn't quite decided to arrive. The towers I painted with long, dragging strokes, letting the paint fall the way reflections fall - downward, loosening, dissolving. I didn't want perfect buildings; I wanted their idea, the way memory keeps things: rough at the edges, but true.\n\nThe golden trees are my witnesses - living warmth holding its ground beside the stone. And the small white marks in the sky? Perhaps gulls, perhaps waves, or simply my own happiness escaping onto the canvas. Sometimes the brush insists on dancing, and I let it.\n\nThis piece isn't about a city. It's about the moment a city looks at itself in the water - and about the peace of being the one lucky enough to see it happen.",
+        "year": "2026",
+        "sold": false
       }
     ]
   }
